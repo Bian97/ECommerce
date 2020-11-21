@@ -44,9 +44,9 @@
                             <span onclick="register()">Cadastrar</span>
                             <hr id="Indicator" >
                         </div>
-                        <form id="LoginForm">
-                            <input type="text" placeholder="Usuario">
-                            <input type="password" placeholder="Senha">
+                        <form id="LoginForm"action="Login" method="POST">
+                            <input name="user" type="text" placeholder="Usuario">
+                            <input name="password" type="password" placeholder="Senha">
                             <button type="submit" class="btn">Login</button>
                             <a href="">Forgot Password</a>
                         </form>

@@ -12,22 +12,6 @@ import java.sql.*;
  * @author Eu
  */
 public class Dao {
-    /*public Connection getConnection(){
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/placeholder?useTimezone=true&serverTimezone=UTC","root","root");
-            return connection;
-        } catch(ClassNotFoundException e){
-            System.out.println("Erro: " + e.getException());
-            e.printStackTrace();
-            return null;
-        }
-        catch(SQLException e){
-            System.out.println("Erro SQL: " + e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
-    }*/
     private Connection connection;
     private String erro="";
     private PreparedStatement statement;

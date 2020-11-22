@@ -34,9 +34,9 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            Dao db = new Dao();
-            Connection conn = db.getConnection();
-            if(conn == null){
+            Dao dao = new Dao();
+            if(!dao.connect())
+            {
                 out.println("Deu ruim");
             } else{
                 out.println("Deu bom");

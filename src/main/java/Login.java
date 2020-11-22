@@ -35,7 +35,7 @@ public class Login extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             try{
-                Dao dao= new Dao();
+                Dao dao = new Dao();
                 if(dao.connect())
                 {
                     String user= request.getParameter("user");
@@ -58,7 +58,7 @@ public class Login extends HttpServlet {
                         }
                         else
                         {    
-                         out.println("Usuário e/ou senha inválido");                     
+                         out.println("Usuário e/ou senha inválido");
                         }
                         rs.close();
                         dao.close();

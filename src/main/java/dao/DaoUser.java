@@ -8,6 +8,7 @@ package dao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -15,12 +16,13 @@ import javax.servlet.http.HttpServletResponse;
  * @author Bian
  */
 public class DaoUser {   
-    public boolean Login(String user, String password, PrintWriter out){
+    public boolean Login(String user, String password, PrintWriter out, HttpServletRequest request, HttpServletResponse response){
         Dao dao = new Dao();
         if(dao.connect())
         {
             try
-            {    
+            {
+              out = response.getWriter();
               dao.createPreparedStatement("select * from user where Name=? and Password=?");
               dao.setString(1, user);
               dao.setString(2, password);
@@ -29,11 +31,14 @@ public class DaoUser {
               {
                 rs.close();
                 dao.close();
-                //request.getSession().setAttribute("user",request.getParameter("user"));
-                out.println("Usuário logado");
+                request.getSession().setAttribute("user",request.getParameter("user"));                
+                response.sendRedirect(request.getContextPath() + "/index.html");
                 return true;
-              }             
-              out.println("Usuário e/ou senha inválido");              
+              } 
+              out.println("<script type=\"text/javascript\">");
+              out.println("alert('Usuário e/ou senha inválido(s)!');");
+              out.println("</script>");
+              //out.println("Usuário e/ou senha inválido");
               rs.close();
               dao.close();
               return false;

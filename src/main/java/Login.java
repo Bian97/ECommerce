@@ -37,13 +37,13 @@ public class Login extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String user = request.getParameter("user");
             String password = request.getParameter("password");
-            out.println("Nome: " + user);
+            //out.println("Nome: " + user);
             if(user == null)
             {
                 response.setStatus(404);
             }
             DaoUser daoUser = new DaoUser();
-            daoUser.Login(user, password, out);
+            daoUser.Login(user, password, out, request, response);
         }
     }
 

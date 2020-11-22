@@ -34,7 +34,7 @@ public class Dao {
                 try
                 {
                     erro="";
-                    Class.forName("com.mysql.jdbc.Driver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/placeholder?useTimezone=true&serverTimezone=UTC","root","root");
                     return true;
                 }

@@ -5,6 +5,7 @@
  */
 
 import dao.Dao;
+import dao.DaoUser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -35,11 +36,17 @@ public class Register extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             Dao dao = new Dao();
+            String user = request.getParameter("user");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            
             if(!dao.connect())
             {
                 out.println("Deu ruim");
             } else{
                 out.println("Deu bom");
+                DaoUser daoUser = new DaoUser();
+                daoUser.Register(user, email, password, response);
             }
             /* TODO output your page here. You may use following sample code. */
             /*Dao dao= new Dao();

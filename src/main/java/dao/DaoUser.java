@@ -5,8 +5,10 @@
  */
 package dao;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -47,14 +49,33 @@ public class DaoUser {
         }
     }
     
-    public void Register(){
+    public void Register(String user, String email, String password, HttpServletResponse response){
         Dao dao = new Dao();
         if(dao.connect())
         {
             try
-            {  
-                
-            } catch(Exception e){
+            {
+                PrintWriter out = response.getWriter();
+                try
+                {  
+                  var stmt = dao.createPreparedStatement("insert into user (Name, Email, Password, Type) values (?, ?, ?, 0)");
+                  stmt.setString(1, user);
+                  stmt.setString(2, email);
+                  stmt.setString(3, password);
+
+                  if(stmt.executeUpdate() > 0){
+                    out.println("<html><body><b>"+user+" Inserido com sucesso"
+                            + "</b></body></html>"); 
+                  } else{
+                      out.println("Erro no Registro!");
+                  }
+
+                  stmt.close();
+
+                }  catch(Exception e){
+                    out.println("Erro: " + e.getMessage());
+                }
+            } catch(IOException e){
                 
             }
         }

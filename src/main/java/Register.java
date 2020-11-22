@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
+import dao.Dao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,13 +34,24 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            Dao db = new Dao();
+            Connection conn = db.getConnection();
+            if(conn == null){
+                out.println("Deu ruim");
+            } else{
+                out.println("Deu bom");
+            }
             /* TODO output your page here. You may use following sample code. */
-            String user= request.getParameter("user");
-            out.println("Nome: " + user);
-            if(user == null)
+            /*Dao dao= new Dao();
+            if(dao.connect())
             {
-                response.setStatus(404);
-            }     
+                String user= request.getParameter("user");
+                out.println("Nome: " + user);
+                if(user == null)
+                {
+                    response.setStatus(404);
+                }
+            }*/
         }
     }
 

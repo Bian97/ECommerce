@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
+import dao.Dao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,12 +34,44 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String user= request.getParameter("user");
-            out.println("Nome: " + user);
-            if(user == null)
-            {
-                response.setStatus(404);
-            }     
+            try{
+                Dao dao= new Dao();
+                if(dao.connect())
+                {
+                    String user= request.getParameter("user");
+                    out.println("Nome: " + user);
+                    if(user == null)
+                    {
+                        response.setStatus(404);
+                    }
+
+                    try
+                      {    
+                        dao.createPreparedStatement("select * from user where Name=? and Password=?");
+                        dao.setString(1, request.getParameter("user"));
+                        dao.setString(2, request.getParameter("password"));
+                        ResultSet rs=dao.executeQuery();
+                        if(rs.next())
+                        {
+                            request.getSession().setAttribute("user",request.getParameter("user"));
+                            out.println("Usuário logado");
+                        }
+                        else
+                        {    
+                         out.println("Usuário e/ou senha inválido");                     
+                        }
+                        rs.close();
+                        dao.close();
+                      }
+                      catch(Exception e)
+                      {
+                          throw e;
+                      } 
+
+                }
+            } catch(Exception e){
+                out.println(e.getMessage());
+            }            
         }
     }
 

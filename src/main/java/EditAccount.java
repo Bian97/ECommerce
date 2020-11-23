@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Bian
  */
-@WebServlet(urlPatterns = {"/EditAccount"})
+@WebServlet(name = "EditAccount", urlPatterns = {"/EditAccount"})
 public class EditAccount extends HttpServlet {
 
     /**
@@ -33,16 +33,22 @@ public class EditAccount extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String user = request.getParameter("user");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
+            /* TODO output your page here. You may use following sample code. */            
             DaoUser daoUser = new DaoUser();
-            /*TODO Ver como carregar a página de edição de conta já com os campos preenchidos
-              Criar pacote model para implementar usuário, produto, etc*/
-            if(request.getSession().getAttribute("email") != null){
-                //Entrar em método em daoUser que procura por e-mail, retorna valores e redireciona para tela de edit-account com atributos de usuário preenchidos (apagar após o uso)
-                //daoUser.EditAccount(user, password, email, response, out, request);
+            
+            String action = request.getParameter("action");
+            
+            if(action.equals("load")){            
+                /*TODO Ver como carregar a página de edição de conta já com os campos preenchidos
+                  Criar pacote model para implementar usuário, produto, etc*/
+                if(request.getSession().getAttribute("userEmail") != null){
+                    daoUser.SearchUser((String) request.getSession().getAttribute("userEmail"), response, out, request);               
+                }
+            } else if (action.equals("edit")){ 
+                String user = request.getParameter("user");
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
+                daoUser.EditAccount(user, password, email, response, out, request);
             }
         }
     }

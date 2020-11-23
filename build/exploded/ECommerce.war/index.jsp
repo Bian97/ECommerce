@@ -40,12 +40,12 @@
                         <%
                             String user=(String)session.getAttribute("user");
                             if (user == "common")
-                            { 
+                            {
                          %>
                         <li><a href="account.html">Conta</a></li>
                         <%} else {%>
-                        <!--<li><a action="">Editar Conta</a></li>-->
-                        <li><a href="edit-account.html">Editar Conta</a></li>
+                        <li><a href="EditAccount?action=load">Editar Conta</a></li>
+                        <!--<li><a href="edit-account.html">Editar Conta</a></li>!-->
                         <%}%>
                     </ul>
                 </nav>

@@ -38,15 +38,7 @@ public class PasswordReset extends HttpServlet {
             DaoUser daoUser = new DaoUser();
             
             daoUser.ChangePassword(password, email, response, out, request);
-            //if(password != null){
-                //String to=request.getParameter("to");
-                /*String subject = "Placeholder - Mudança de Senha";
-                String msg = "Você gostaria de mudar sua senha?";
-          
-                Mailer.send(email, subject, msg, out, response);
-                out.print("Mensagem enviada com sucesso!");*/
             out.close();
-            //}
         }
     }
 

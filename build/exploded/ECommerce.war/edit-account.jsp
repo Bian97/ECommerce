@@ -17,7 +17,7 @@
         <div>Editar Conta</div><br>
         <form id="EditAccountForm" action="EditAccount?action=edit" method="POST">
             <%
-                User user=(User)session.getAttribute("userInformations");
+                User user=(User)session.getAttribute("user");
             %>
             
             <div>Editar Nome</div>

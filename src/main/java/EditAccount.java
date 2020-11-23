@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User;
 
 /**
  *
@@ -33,16 +34,14 @@ public class EditAccount extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */            
             DaoUser daoUser = new DaoUser();
             
             String action = request.getParameter("action");
             
             if(action.equals("load")){            
-                /*TODO Ver como carregar a página de edição de conta já com os campos preenchidos
-                  Criar pacote model para implementar usuário, produto, etc*/
-                if(request.getSession().getAttribute("userEmail") != null){
-                    daoUser.SearchUser((String) request.getSession().getAttribute("userEmail"), response, out, request);               
+                if(((User)request.getSession().getAttribute("user")).getEmail() != null){
+                    out.println(((User)request.getSession().getAttribute("user")).getEmail());
+                    daoUser.SearchUser(((User)request.getSession().getAttribute("user")).getEmail(), response, out, request);               
                 }
             } else if (action.equals("edit")){ 
                 String user = request.getParameter("user");

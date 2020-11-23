@@ -5,7 +5,6 @@
  */
 package dao;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,7 @@ import model.User;
  * @author Bian
  */
 public class DaoUser {   
-    public boolean Login(String user, String password, PrintWriter out, HttpServletRequest request, HttpServletResponse response){
+    public boolean Login(String name, String password, PrintWriter out, HttpServletRequest request, HttpServletResponse response){
         Dao dao = new Dao();
         if(dao.connect())
         {
@@ -25,13 +24,13 @@ public class DaoUser {
             {
               out = response.getWriter();
               dao.createPreparedStatement("select * from user where Name=? and Password=?");
-              dao.setString(1, user);
+              dao.setString(1, name);
               dao.setString(2, password);
               ResultSet rs = dao.executeQuery();              
               if(rs.next())
-              {                
-                request.getSession().setAttribute("user", rs.getString("Name"));
-                request.getSession().setAttribute("userEmail", rs.getString("Email"));
+              {
+                User user = new User(rs.getString("Name"),rs.getString("Email"), rs.getString("Password"), rs.getBoolean("Type"));
+                request.getSession().setAttribute("user", user);
                 rs.close();
                 dao.close();
                 response.sendRedirect(request.getContextPath() + "/index.jsp");
@@ -56,22 +55,22 @@ public class DaoUser {
         }
     }
     
-    public void Register(String user, String email, String password, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
+    public void Register(String name, String email, String password, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
         Dao dao = new Dao();
         if(dao.connect())
         {
             try
             {  
               var stmt = dao.createPreparedStatement("insert into user (Name, Email, Password, Type) values (?, ?, ?, 0)");
-              stmt.setString(1, user);
+              stmt.setString(1, name);
               stmt.setString(2, email);
               stmt.setString(3, password);
 
               if(stmt.executeUpdate() > 0){                    
-                out.println("<html><body><b>"+user+" Inserido com sucesso"
+                out.println("<html><body><b>"+name+" Inserido com sucesso"
                         + "</b></body></html>");
+                User user = new User(name, email, password, false);
                 request.getSession().setAttribute("user", user);
-                request.getSession().setAttribute("userEmail", email);
               } else{
                   out.println("Erro no Registro!");
               }
@@ -124,9 +123,7 @@ public class DaoUser {
               
               if(stmt.executeUpdate() > 0){
                 User user = new User(name, email, password);
-                request.getSession().setAttribute("userInformations", user);
-                request.getSession().setAttribute("user", name);
-                request.getSession().setAttribute("email", email);
+                request.getSession().setAttribute("user", user);
                 
                 response.sendRedirect(request.getContextPath() + "/edit-account.jsp");
               } else{
@@ -153,11 +150,8 @@ public class DaoUser {
               if(rs.next())
               {
                 User user = new User(rs.getString("Name"),rs.getString("Email"), rs.getString("Password"), rs.getBoolean("Type"));
-                out.println(request.getSession().getAttribute("userEmail"));
                 
-                request.getSession().setAttribute("userInformations", user);
-                request.getSession().setAttribute("user", rs.getString("Name"));
-                request.getSession().setAttribute("userEmail", rs.getString("Email"));
+                request.getSession().setAttribute("user", user);
                 
                 rs.close();
                 stmt.close();

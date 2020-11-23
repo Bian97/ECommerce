@@ -35,7 +35,6 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            Dao dao = new Dao();
             String user = request.getParameter("user");
             String email = request.getParameter("email");
             String password = request.getParameter("password");

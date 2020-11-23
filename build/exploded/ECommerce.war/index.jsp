@@ -4,13 +4,8 @@
     Author     : Bian
 --%>
 
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
-<%    
-    if((String)session.getAttribute("user") == null){
-        session.setAttribute("user", "common");
-        session.setAttribute("userEmail", null);
-    }
-%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -36,8 +31,8 @@
                     <ul id="MenuItems">
                         <li><a href="products.jsp">Produtos</a></li>                        
                         <%
-                            String user=(String)session.getAttribute("user");
-                            if (user == "common")
+                            User user=(User)session.getAttribute("user");
+                            if (user == null)
                             {
                          %>
                                 <li><a href="account.jsp">Conta</a></li>

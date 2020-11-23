@@ -1,9 +1,11 @@
+<%-- 
+    Document   : edit-account
+    Created on : 23 de nov. de 2020, 09:52:05
+    Author     : Bian
+--%>
+
+<%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Editar Conta</title>

@@ -41,7 +41,8 @@ public class EditAccount extends HttpServlet {
             /*TODO Ver como carregar a página de edição de conta já com os campos preenchidos
               Criar pacote model para implementar usuário, produto, etc*/
             if(request.getSession().getAttribute("email") != null){
-                daoUser.EditAccount(user, password, email, response, out, request);
+                //Entrar em método em daoUser que procura por e-mail, retorna valores e redireciona para tela de edit-account com atributos de usuário preenchidos (apagar após o uso)
+                //daoUser.EditAccount(user, password, email, response, out, request);
             }
         }
     }

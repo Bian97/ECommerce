@@ -122,7 +122,7 @@ public class DaoUser {
               stmt.setString(3, email);
               
               if(stmt.executeUpdate() > 0){
-                response.sendRedirect(request.getContextPath() + "/edit-account.html");
+                response.sendRedirect(request.getContextPath() + "/edit-account.jsp");
               } else{
                   out.println("Alteração com erro!");
               }

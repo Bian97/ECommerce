@@ -563,6 +563,11 @@ form a{
     transition: transform 1s;
 }
 
+/* register-product */
+
+.register-product .form-container{
+    box-shadow: none;
+}
 
 /* media query for menu */
 

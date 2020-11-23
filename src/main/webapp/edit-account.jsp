@@ -28,7 +28,7 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
-                    <li><a href="products.jsp">Produtos</a></li>
+                    <li><a href="Product?action=load">Produtos</a></li>
                     <%
                         User user=(User)session.getAttribute("user");
                         if (user == null)

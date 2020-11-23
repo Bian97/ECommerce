@@ -4,6 +4,10 @@
     Author     : Bian
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.Array"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Product"%>
 <%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
@@ -56,7 +60,7 @@
                 <option>Default Shorting</option>
             </select>
         </div>
-        <%            
+        <%
             if(user != null){
                 if (!user.isType())
                 {
@@ -65,6 +69,60 @@
         <%      }
             }%>
         <div class="row">
+            <% List<Product> products = (ArrayList)session.getAttribute("products");
+                for(int i = 0; i < products.size(); i++){
+                    %>
+            <div class="col-4">
+                <img src="images/placeholder.png">
+                <h4><%= products.get(i).getName() %></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p> R$ <%= products.get(i).getPrice() %> </p>
+            </div>
+            <%}%>
+            <!--<div class="col-4">
+                <img src="images/placeholder.png">
+                <h4>Lorem ipsum dolor</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>R$ 50,00</p>
+            </div>
+            <div class="col-4">
+                <img src="images/placeholder.png">
+                <h4>Lorem ipsum dolor</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                </div>
+                <p>R$ 50,00</p>
+            </div>
+            <div class="col-4">
+                <img src="images/placeholder.png">
+                <h4>Lorem ipsum dolor</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>R$ 50,00</p>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-4">
                 <img src="images/placeholder.png">
                 <h4>Lorem ipsum dolor</h4>
@@ -162,57 +220,7 @@
                     <i class="fa fa-star-o"></i>
                 </div>
                 <p>R$ 50,00</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>R$ 50,00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>R$ 50,00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
-                <p>R$ 50,00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>R$ 50,00</p>
-            </div>
+            </div>-->
         </div>
         <div class="page-btn">
             <span>1</span>

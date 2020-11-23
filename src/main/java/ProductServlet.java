@@ -7,6 +7,7 @@
 import dao.DaoProduct;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,14 +35,26 @@ public class ProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String name = request.getParameter("name");
-            double price = Double.parseDouble(request.getParameter("price"));
-            String description = request.getParameter("description");
-            String imagePath = null;
-
-            Product product = new Product(name, price, description, imagePath);
-            DaoProduct daoProduct = new DaoProduct();            
-            daoProduct.AddProduct(product, response, request, out);
+            String action = request.getParameter("action");
+            DaoProduct daoProduct = new DaoProduct();
+            
+            if(action.equals("load")){            
+                //if(((ArrayList)request.getSession().getAttribute("products")).size() > 0){
+                //out.println("Tamanho: "+((ArrayList)request.getSession().getAttribute("products")).size());
+                daoProduct.ListProducts(response, request, out);
+                response.sendRedirect(request.getContextPath() + "/products.jsp");
+                //}
+            } else {
+                String name = request.getParameter("name");
+                double price = Double.parseDouble(request.getParameter("price"));
+                String description = request.getParameter("description");
+                String imagePath = null;
+                Product product = new Product(name, price, description, imagePath);            
+                daoProduct.AddProduct(product, response, request, out);
+            }
+            
+            /*DaoProduct daoProduct = new DaoProduct();
+            daoProduct.ListProducts(response, request, out);*/
         }
     }
 

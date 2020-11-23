@@ -6,9 +6,13 @@
 package dao;
 
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
+import model.User;
 
 /**
  *
@@ -92,6 +96,35 @@ public class DaoProduct {
 
               stmt.close();
 
+            }  catch(Exception e){
+                out.println("Erro: " + e.getMessage());
+            }
+        } else {
+            out.println("Erro de Conexão!!");
+        }
+    }
+    public void ListProducts(HttpServletResponse response, HttpServletRequest request, PrintWriter out){
+        Dao dao = new Dao();
+        if(dao.connect())
+        {
+            try
+            {  
+              var stmt = dao.createPreparedStatement("Select * from product");
+
+              ResultSet rs = stmt.executeQuery();
+              List<Product> products = new ArrayList<>();
+              out.println("Cheguei aqui");
+              while(rs.next())
+              {
+                Product product = new Product(rs.getInt("IdProduct"), rs.getString("Name"), rs.getDouble("Price"), rs.getString("Description"), rs.getString("ImagePath"));
+                products.add(product);
+              } 
+              rs.close();
+              stmt.close();
+              
+              request.getSession().setAttribute("products", products);
+              
+              //response.sendRedirect(request.getContextPath() + "/products.jsp");
             }  catch(Exception e){
                 out.println("Erro: " + e.getMessage());
             }

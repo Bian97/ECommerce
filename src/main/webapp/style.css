@@ -569,6 +569,12 @@ form a{
     box-shadow: none;
 }
 
+/* .edit-account */
+
+.edit-account span{
+    width: 150px;
+}
+
 /* media query for menu */
 
 @media only screen and (max-width: 800px) {

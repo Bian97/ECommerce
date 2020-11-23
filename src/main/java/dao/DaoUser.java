@@ -98,7 +98,7 @@ public class DaoUser {
               if(stmt.executeUpdate() > 0){
                 out.println("<html><body><b>Senha alterada com sucesso!"
                         + "</b></body></html>"); 
-                response.sendRedirect(request.getContextPath() + "/account.html");
+                response.sendRedirect(request.getContextPath() + "/account.jsp");
               } else{
                   out.println("E-mail não cadastrado!");
               }

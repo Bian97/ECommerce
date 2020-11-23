@@ -34,19 +34,18 @@
                 </div>
                 <nav>
                     <ul id="MenuItems">
-                        <li><a href="index.jsp">Home</a></li>
                         <li><a href="products.html">Produtos</a></li>                        
                         <%
                             String user=(String)session.getAttribute("user");
                             if (user == "common")
                             {
                          %>
-                        <li><a href="account.html">Conta</a></li>
-                        <%} else {%>
-                        <li><a href="order.html">Pedidos</a></li>
-                        <li><a href="EditAccount?action=load">Editar Conta</a></li>
-                        <a href="cart.html"><i class="fa fa-shopping-cart"></i></a>
-                        <%}%>
+                                <li><a href="account.jsp">Conta</a></li>
+                        <%  } else {%>
+                                <li><a href="order.html">Pedidos</a></li>
+                                <li><a href="EditAccount?action=load">Editar Conta</a></li>
+                                <a href="cart.html"><i class="fa fa-shopping-cart"></i></a>
+                        <%  }%>
                     </ul>
                 </nav>
                 <i class="fa fa-bars" onclick="menutoggle()"></i>

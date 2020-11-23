@@ -4,11 +4,9 @@
  * and open the template in the editor.
  */
 
-import dao.Dao;
 import dao.DaoUser;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Bian
  */
-@WebServlet(name = "Register", urlPatterns = {"/Register"})
-public class Register extends HttpServlet {
+@WebServlet(urlPatterns = {"/EditAccount"})
+public class EditAccount extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,14 +33,12 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            Dao dao = new Dao();
+            /* TODO output your page here. You may use following sample code. */
             String user = request.getParameter("user");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            
-            out.println("Deu bom");
             DaoUser daoUser = new DaoUser();
-            daoUser.Register(user, email, password, response, request, out);
+            daoUser.EditAccount(user, password, email, response, out, request);            
         }
     }
 

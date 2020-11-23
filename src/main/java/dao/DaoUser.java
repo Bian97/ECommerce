@@ -28,10 +28,11 @@ public class DaoUser {
               dao.setString(2, password);
               ResultSet rs = dao.executeQuery();              
               if(rs.next())
-              {
+              {                
+                request.getSession().setAttribute("user", rs.getString("Name"));
+                request.getSession().setAttribute("userEmail", rs.getString("Email"));
                 rs.close();
                 dao.close();
-                request.getSession().setAttribute("user",request.getParameter("user"));                
                 response.sendRedirect(request.getContextPath() + "/index.jsp");
                 return true;
               } 
@@ -54,39 +55,37 @@ public class DaoUser {
         }
     }
     
-    public void Register(String user, String email, String password, HttpServletResponse response){
+    public void Register(String user, String email, String password, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
         Dao dao = new Dao();
         if(dao.connect())
         {
             try
-            {
-                PrintWriter out = response.getWriter();
-                try
-                {  
-                  var stmt = dao.createPreparedStatement("insert into user (Name, Email, Password, Type) values (?, ?, ?, 0)");
-                  stmt.setString(1, user);
-                  stmt.setString(2, email);
-                  stmt.setString(3, password);
+            {  
+              var stmt = dao.createPreparedStatement("insert into user (Name, Email, Password, Type) values (?, ?, ?, 0)");
+              stmt.setString(1, user);
+              stmt.setString(2, email);
+              stmt.setString(3, password);
 
-                  if(stmt.executeUpdate() > 0){                    
-                    out.println("<html><body><b>"+user+" Inserido com sucesso"
-                            + "</b></body></html>"); 
-                  } else{
-                      out.println("Erro no Registro!");
-                  }
+              if(stmt.executeUpdate() > 0){                    
+                out.println("<html><body><b>"+user+" Inserido com sucesso"
+                        + "</b></body></html>");
+                request.getSession().setAttribute("user", user);
+                request.getSession().setAttribute("userEmail", email);
+              } else{
+                  out.println("Erro no Registro!");
+              }
 
-                  stmt.close();
+              stmt.close();
 
-                }  catch(Exception e){
-                    out.println("Erro: " + e.getMessage());
-                }
-            } catch(IOException e){
-                
+            }  catch(Exception e){
+                out.println("Erro: " + e.getMessage());
             }
+        } else {
+            out.println("Erro de Conexão!!");
         }
     }
     
-    public void ChangePassword(String password, String email, HttpServletResponse response, PrintWriter out){
+    public void ChangePassword(String password, String email, HttpServletResponse response, PrintWriter out, HttpServletRequest request){
         Dao dao = new Dao();
         if(dao.connect())
         {
@@ -98,6 +97,7 @@ public class DaoUser {
               if(stmt.executeUpdate() > 0){
                 out.println("<html><body><b>Senha alterada com sucesso!"
                         + "</b></body></html>"); 
+                response.sendRedirect(request.getContextPath() + "/account.html");
               } else{
                   out.println("E-mail não cadastrado!");
               }
@@ -107,43 +107,31 @@ public class DaoUser {
             }  catch(Exception e){
                 out.println("Erro: " + e.getMessage());
             }
-        }
-        /*Dao dao = new Dao();
-        
+        }      
+    }
+    
+    public void EditAccount(String user, String password, String email, HttpServletResponse response, PrintWriter out, HttpServletRequest request){
+        Dao dao = new Dao();
         if(dao.connect())
-        {            
+        {
             try
-            {
-              dao.createPreparedStatement("select * from user where Email LIKE '%"+email+"%' ");
-              //dao.setString(1, email);
-              ResultSet rs = dao.executeQuery();              
-              if(rs.next())
-              {
-                email = rs.getString("Email");
-                rs.close();
-                dao.close();
-                //request.getSession().setAttribute("user",request.getParameter("user"));
-                //response.sendRedirect(request.getContextPath() + "/index.html");
-                return email;
-              } 
-              out.println("<script type=\"text/javascript\">");
-              out.println("alert('Usuário e/ou senha inválido(s)!');");
-              out.println("</script>");
-              //out.println("Usuário e/ou senha inválido");
-              rs.close();
-              dao.close();
-              return null;
+            {  
+              var stmt = dao.createPreparedStatement("UPDATE user SET Name = ?, Password = ?, Email = ? WHERE Email LIKE '%"+email+"%'");
+              stmt.setString(1, user);
+              stmt.setString(2, password);
+              stmt.setString(3, email);
+              
+              if(stmt.executeUpdate() > 0){
+                response.sendRedirect(request.getContextPath() + "/edit-account.html");
+              } else{
+                  out.println("Alteração com erro!");
+              }
+
+              stmt.close();
+
+            }  catch(Exception e){
+                out.println("Erro: " + e.getMessage());
             }
-            catch(Exception e)
-            {
-                //out.println(e.getMessage());
-                return null;
-            }
-        } else {
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Erro de Conexão: "+dao.getErro()+"');");
-            out.println("</script>");
-            return null;
-        }*/
+        }
     }
 }

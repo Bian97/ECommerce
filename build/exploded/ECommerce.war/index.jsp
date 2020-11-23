@@ -7,7 +7,8 @@
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <%    
     if((String)session.getAttribute("user") == null){
-        session.setAttribute("user", "common"); 
+        session.setAttribute("user", "common");
+        session.setAttribute("userEmail", null);
     }
 %>
 <!DOCTYPE html>
@@ -29,7 +30,7 @@
         <div class="container">
             <div class="navbar">
                 <div class="logo">
-                    <a href="index.html"><img src="images/placeholder-logo.png" width="125px"></a>
+                    <a href="index.jsp"><img src="images/placeholder-logo.png" width="125px"></a>
                 </div>
                 <nav>
                     <ul id="MenuItems">

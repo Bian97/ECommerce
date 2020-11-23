@@ -22,7 +22,7 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <a href="index.html"><img src="images/placeholder-logo.png" width="125px"></a>
+                <a href="index.jsp"><img src="images/placeholder-logo.png" width="125px"></a>
             </div>
             <nav>
                 <ul id="MenuItems">
@@ -34,16 +34,13 @@
                      %>
                             <li><a href="account.jsp">Conta</a></li>
                     <%  } else {%>
-                            <li><a href="order.html">Pedidos</a></li>
+                            <li><a href="order.jsp">Pedidos</a></li>
                             <li><a href="EditAccount?action=load">Editar Conta</a></li>
-                            <a href="cart.html"><i class="fa fa-shopping-cart"></i></a>
-                    <%  }%>                    
-                    <!--<li><a href="products.html">Produtos</a></li>
-                    <li><a href="order.html">Pedidos</a></li>
-                    <li><a href="account.html">Conta</a></li>-->
+                            <a href="cart.jsp"><i class="fa fa-shopping-cart"></i></a>
+                    <%  }%>
+                    <!--<li><a href="products.jsp">Produtos</a></li>-->
                 </ul>
             </nav>
-            <a href="cart.html"><i class="fa fa-shopping-cart"></i></a>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
         </div>
     </div>

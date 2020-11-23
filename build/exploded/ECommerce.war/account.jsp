@@ -36,9 +36,9 @@
                          %>
                                 <li><a href="account.jsp">Conta</a></li>
                         <%  } else {%>
-                                <li><a href="order.html">Pedidos</a></li>
+                                <li><a href="order.jsp">Pedidos</a></li>
                                 <li><a href="EditAccount?action=load">Editar Conta</a></li>
-                                <a href="cart.html"><i class="fa fa-shopping-cart"></i></a>
+                                <a href="cart.jsp"><i class="fa fa-shopping-cart"></i></a>
                         <%  }%>
                 </ul>
             </nav>

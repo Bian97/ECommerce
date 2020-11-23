@@ -32,7 +32,7 @@ public class DaoUser {
                 rs.close();
                 dao.close();
                 request.getSession().setAttribute("user",request.getParameter("user"));                
-                response.sendRedirect(request.getContextPath() + "/index.html");
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
                 return true;
               } 
               out.println("<script type=\"text/javascript\">");
@@ -68,7 +68,7 @@ public class DaoUser {
                   stmt.setString(2, email);
                   stmt.setString(3, password);
 
-                  if(stmt.executeUpdate() > 0){
+                  if(stmt.executeUpdate() > 0){                    
                     out.println("<html><body><b>"+user+" Inserido com sucesso"
                             + "</b></body></html>"); 
                   } else{

@@ -1,3 +1,15 @@
+<%-- 
+    Document   : index
+    Created on : 22 de nov. de 2020, 22:39:24
+    Author     : Bian
+--%>
+
+<%@page contentType="text/html" pageEncoding="windows-1252"%>
+<%    
+    if((String)session.getAttribute("user") == null){
+        session.setAttribute("user", "common"); 
+    }
+%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -21,10 +33,18 @@
                 </div>
                 <nav>
                     <ul id="MenuItems">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.jsp">Home</a></li>
                         <li><a href="products.html">Produtos</a></li>
                         <li><a href="order.html">Pedidos</a></li>
+                        <%
+                            String user=(String)session.getAttribute("user");
+                            if (user == "common")
+                            { 
+                         %>
                         <li><a href="account.html">Conta</a></li>
+                        <%} else {%>
+                        <li><a href="edit-account.html">Editar Conta</a></li>
+                        <%}%>
                     </ul>
                 </nav>
                 <a href="cart.html"><i class="fa fa-shopping-cart"></i></a>
@@ -101,7 +121,7 @@
     <!--footer -->
     <div class="footer">
         <div class="container">
-            <p class="copyright">Trabalho A2 AplicaÃ§Ãµes na internet</p>
+            <p class="copyright">Trabalho A2 Aplicações na internet</p>
             <hr>
             <p class="copyright">Copyright 2020 - Placeholder Victor Franklin, Bian Medeiros, Alexandre</p>
         </div>

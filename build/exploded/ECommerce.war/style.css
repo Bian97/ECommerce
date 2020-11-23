@@ -243,7 +243,7 @@ small {
     background: #000;
     color: #8a8a8a;
     font-size: 14px;
-    padding: 60px 0 20px;
+    padding: 40px 0 20px;
 }
 
 .footer p {
@@ -454,12 +454,32 @@ td img {
     max-width: 400px;
 }
 
-td:last-child {
+th:last-child {
     text-align: right;
+    padding-right: 20px;
 }
 
 td:last-child {
     text-align: right;
+    padding-right: 20px;
+}
+
+/* order page */
+
+.order-page {
+    margin: 80px auto;
+}
+
+.order-info{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 0px;
+}
+
+.order-page tr{
+    border-bottom: 1px solid #ff523b;
+    width: 100%;
+    max-width: 400px;
 }
 
 /* account-page */
@@ -543,6 +563,11 @@ form a{
     transition: transform 1s;
 }
 
+/* register-product */
+
+.register-product .form-container{
+    box-shadow: none;
+}
 
 /* media query for menu */
 

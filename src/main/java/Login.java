@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 
+import dao.Dao;
+import dao.DaoUser;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Bian
  */
-@WebServlet(urlPatterns = {"/Account"})
-public class Account extends HttpServlet {
+@WebServlet(name="Login",urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,18 +33,17 @@ public class Account extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Account</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Account at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String user = request.getParameter("user");
+            String password = request.getParameter("password");
+            //out.println("Nome: " + user);
+            if(user == null)
+            {
+                response.setStatus(404);
+            }
+            DaoUser daoUser = new DaoUser();
+            daoUser.Login(user, password, out, request, response);
         }
     }
 

@@ -1,3 +1,11 @@
+<%-- 
+    Document   : account
+    Created on : 23 de nov. de 2020, 13:04:04
+    Author     : Bian
+--%>
+
+<%@page import="model.User"%>
+<%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -15,17 +23,26 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <a href="index.html"><img src="images/placeholder-logo.png" width="125px"></a>
+                <a href="index.jsp"><img src="images/placeholder-logo.png" width="125px"></a>
             </div>
             <nav>
                 <ul id="MenuItems">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Produtos</a></li>
-                    <li><a href="order.html">Pedidos</a></li>
-                    <li><a href="account.html">Conta</a></li>
+                    <li><a href="index.jsp">Home</a></li>
+                    <li><a href="products.jsp">Produtos</a></li>
+                    
+                        <%
+                            User user=(User)session.getAttribute("user");
+                            if (user == null)
+                            {
+                         %>
+                                <li><a href="account.jsp">Conta</a></li>
+                        <%  } else {%>
+                                <li><a href="order.jsp">Pedidos</a></li>
+                                <li><a href="EditAccount?action=load">Editar Conta</a></li>
+                                <a href="cart.jsp"><i class="fa fa-shopping-cart"></i></a>
+                        <%  }%>
                 </ul>
             </nav>
-            <a href="cart.html"><i class="fa fa-shopping-cart"></i></a>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
         </div>
     </div>
@@ -44,16 +61,16 @@
                             <span onclick="register()">Cadastrar</span>
                             <hr id="Indicator" >
                         </div>
-                        <form id="LoginForm">
-                            <input type="text" placeholder="Usuario">
-                            <input type="password" placeholder="Senha">
+                        <form id="LoginForm" action="Login" method="POST">
+                            <input name="user" type="text" placeholder="Usuario">
+                            <input name="password" type="password" placeholder="Senha">
                             <button type="submit" class="btn">Login</button>
-                            <a href="">Forgot Password</a>
+                            <a href="forgot-password.html">Esqueci a Senha</a>
                         </form>
-                        <form id="RegForm">
-                            <input type="text" placeholder="Usuario">
-                            <input type="email" placeholder="Email">
-                            <input type="password" placeholder="Senha">
+                        <form id="RegForm" action="Register" method="POST">
+                            <input name="user" type="text" placeholder="Usuario">
+                            <input name="email" type="email" placeholder="Email">
+                            <input name="password" type="password" placeholder="Senha">
                             <button type="submit" class="btn">Cadastrar</button>
                         </form>
                     </div>
@@ -64,7 +81,7 @@
    <!--footer -->
    <div class="footer">
     <div class="container">
-        <p class="copyright">Trabalho A2 AplicaÃ§Ãµes na internet</p>
+        <p class="copyright">Trabalho A2 Aplicações na internet</p>
         <hr>
         <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
     </div>
@@ -101,5 +118,4 @@
     </script>
 
 </body>
-
 </html>

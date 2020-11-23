@@ -1,10 +1,18 @@
+<%-- 
+    Document   : products
+    Created on : 23 de nov. de 2020, 13:14:37
+    Author     : Bian
+--%>
+
+<%@page import="model.User"%>
+<%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products - Redstore</title>
+    <title>Todos Produtos</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -15,23 +23,31 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <a href="index.html"><img src="images/placeholder-logo.png" width="125px"></a>
+                <a href="index.jsp"><img src="images/placeholder-logo.png" width="125px"></a>
             </div>
             <nav>
                 <ul id="MenuItems">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Produtos</a></li>
-                    <li><a href="">Pedidos</a></li>
-                    <li><a href="account.html">Conta</a></li>
+                    <li><a href="index.jsp">Home</a></li>
+                    <%
+                        User user=(User)session.getAttribute("user");
+                        if (user == null)
+                        {
+                     %>
+                            <li><a href="account.jsp">Conta</a></li>
+                    <%  } else {%>
+                            <li><a href="order.jsp">Pedidos</a></li>
+                            <li><a href="EditAccount?action=load">Editar Conta</a></li>
+                            <a href="cart.jsp"><i class="fa fa-shopping-cart"></i></a>
+                    <%  }%>
+                    <!--<li><a href="products.jsp">Produtos</a></li>-->
                 </ul>
             </nav>
-            <a href="cart.html"><i class="fa fa-shopping-cart"></i></a>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
         </div>
     </div>
     <div class="small-container">
         <div class="row row-2">
-            <h2>All Products</h2>
+            <h2>Produtos</h2>
             <select>
                 <option>Default Shorting</option>
                 <option>Default Shorting</option>
@@ -40,6 +56,7 @@
                 <option>Default Shorting</option>
             </select>
         </div>
+        <a href="register-product.html" class="btn">Adicionar Produto</a>
         <div class="row">
             <div class="col-4">
                 <img src="images/placeholder.png">
@@ -201,44 +218,9 @@
     <!--footer -->
     <div class="footer">
         <div class="container">
-            <div class="row">
-                <div class="footer-col-1">
-                    <h3>Lorem ipsum dolor</h3>
-                    <p>Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit.</p>
-                    <div class="app-logo">
-                        <img src="images/placeholder.png">
-                        <img src="images/placeholder.png">
-                    </div>
-                </div>
-                <div class="footer-col-2">
-                    <img src="images/placeholder.png">
-                    <p>Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit.
-                        Aenean efficitur fringilla lorem id
-                        tincidunt.</p>
-                </div>
-                <div class="footer-col-3">
-                    <h3>Lorem ipsum</h3>
-                    <ul>
-                        <li>Lorem</li>
-                        <li>Lorem</li>
-                        <li>Lorem</li>
-                        <li>Lorem</li>
-                    </ul>
-                </div>
-                <div class="footer-col-4">
-                    <h3>Lorem ipsum</h3>
-                    <ul>
-                        <li>Lorem</li>
-                        <li>Lorem</li>
-                        <li>Lorem</li>
-                        <li>Lorem</li>
-                    </ul>
-                </div>
-            </div>
+            <p class="copyright">Trabalho A2 Aplicações na internet</p>
             <hr>
-            <p class="copyright">Lorem ipsum dolor sit amet</p>
+            <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
         </div>
     </div>
 

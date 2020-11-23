@@ -12,6 +12,14 @@ hs_err_pid*
 # Inclusions
 !lib/**
 
+# NetBeans specific #
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
 # Compiled Files
 *.class
 bin/

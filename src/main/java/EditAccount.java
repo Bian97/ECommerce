@@ -38,7 +38,11 @@ public class EditAccount extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             DaoUser daoUser = new DaoUser();
-            daoUser.EditAccount(user, password, email, response, out, request);            
+            /*TODO Ver como carregar a página de edição de conta já com os campos preenchidos
+              Criar pacote model para implementar usuário, produto, etc*/
+            if(request.getSession().getAttribute("email") != null){
+                daoUser.EditAccount(user, password, email, response, out, request);
+            }
         }
     }
 

@@ -56,7 +56,14 @@
                 <option>Default Shorting</option>
             </select>
         </div>
+        <%            
+            if(user != null){
+                if (!user.isType())
+                {
+        %>
         <a href="register-product.html" class="btn">Adicionar Produto</a>
+        <%      }
+            }%>
         <div class="row">
             <div class="col-4">
                 <img src="images/placeholder.png">

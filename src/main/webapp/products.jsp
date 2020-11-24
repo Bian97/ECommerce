@@ -41,7 +41,12 @@
                     <%  } else {%>
                             <li><a href="order.jsp">Pedidos</a></li>
                             <li><a href="EditAccount?action=load">Editar Conta</a></li>
-                            <a href="cart.jsp"><i class="fa fa-shopping-cart"></i></a>
+                            <%
+                                if (!user.isType())
+                                {
+                            %>
+                                    <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
+                            <%  }%>
                     <%  }%>
                     <!--<li><a href="products.jsp">Produtos</a></li>-->
                 </ul>

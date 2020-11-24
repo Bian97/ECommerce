@@ -71,6 +71,7 @@
                             <input name="email" type="text" placeholder="E-mail" value="<%= user.getEmail() %>">
                             <input name="password" type="text" placeholder="Senha" value="<%= user.getPassword() %>">
                             <button type="submit" class="btn">Alterar</button>
+                            <a href="" class="btn">Remover</a>
                         </form>
                     </div>
                 </div>

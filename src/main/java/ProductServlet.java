@@ -41,7 +41,7 @@ public class ProductServlet extends HttpServlet {
             if(action.equals("load")){            
                 daoProduct.ListProducts(response, request, out);
                 response.sendRedirect(request.getContextPath() + "/products.jsp");
-            } else {
+            } else if (action.equals("save")) {
                 String name = request.getParameter("name");
                 double price = Double.parseDouble(request.getParameter("price"));
                 String description = request.getParameter("description");
@@ -49,9 +49,6 @@ public class ProductServlet extends HttpServlet {
                 Product product = new Product(name, price, description, imagePath);            
                 daoProduct.AddProduct(product, response, request, out);
             }
-            
-            /*DaoProduct daoProduct = new DaoProduct();
-            daoProduct.ListProducts(response, request, out);*/
         }
     }
 

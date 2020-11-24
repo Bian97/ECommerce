@@ -70,7 +70,7 @@
                 if (!user.isType())
                 {
         %>
-        <a href="register-product.html" class="btn">Adicionar Produto</a>
+        <a href="register-product.jsp" class="btn">Adicionar Produto</a>
         <%      }
             }%>
         <div class="row">

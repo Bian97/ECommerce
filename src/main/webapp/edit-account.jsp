@@ -37,7 +37,7 @@
                     <li><a href="account.jsp">Conta</a></li>
                     <%  } else {%>
                             <li><a href="order.jsp">Pedidos</a></li>
-                            <li><a href="EditAccount?action=load">Editar Conta</a></li>
+                            <li><a href="User?action=load">Editar Conta</a></li>
                             <%
                                 if (!user.isType())
                                 {
@@ -62,16 +62,16 @@
                         <div class="form-btn">
                             <span>Editar Conta</span>
                         </div>
-                        <form id="EditAccountForm" action="EditAccount?action=edit" method="POST">
+                        <form id="EditAccountForm" action="User?action=edit" method="POST">
                             <%
                                 user=(User)session.getAttribute("user");
                             %>
 
-                            <input name="user" type="text" placeholder="Nome" value="<%= user.getName() %>">
+                            <input name="name" type="text" placeholder="Nome" value="<%= user.getName() %>">
                             <input name="email" type="text" placeholder="E-mail" value="<%= user.getEmail() %>">
                             <input name="password" type="text" placeholder="Senha" value="<%= user.getPassword() %>">
                             <button type="submit" class="btn">Alterar</button>
-                            <a href="" class="btn">Remover</a>
+                            <button type="submit" formaction="User?action=remove" class="btn">Remover</button>
                         </form>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
     <!--footer -->
     <div class="footer">
         <div class="container">
-            <p class="copyright">Trabalho A2 Aplicaï¿½ï¿½es na internet</p>
+            <p class="copyright">Trabalho A2 Aplicações na internet</p>
             <hr>
             <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
         </div>

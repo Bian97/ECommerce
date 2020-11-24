@@ -28,7 +28,7 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
-                    <li><a href="Product?action=load">Produtos</a></li>                    
+                    <li><a href="User?action=load">Produtos</a></li>                    
                 </ul>
             </nav>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
@@ -49,14 +49,14 @@
                             <span onclick="register()">Cadastrar</span>
                             <hr id="Indicator" >
                         </div>
-                        <form id="LoginForm" action="Login" method="POST">
-                            <input name="user" type="text" placeholder="Usuario">
+                        <form id="LoginForm" action="User?action=login" method="POST">
+                            <input name="name" type="text" placeholder="Usuario">
                             <input name="password" type="password" placeholder="Senha">
                             <button type="submit" class="btn">Login</button>
                             <a href="forgot-password.html">Esqueci a Senha</a>
                         </form>
-                        <form id="RegForm" action="Register" method="POST">
-                            <input name="user" type="text" placeholder="Usuario">
+                        <form id="RegForm" action="User?action=register" method="POST">
+                            <input name="name" type="text" placeholder="Usuario">
                             <input name="email" type="email" placeholder="Email">
                             <input name="password" type="password" placeholder="Senha">
                             <button type="submit" class="btn">Cadastrar</button>

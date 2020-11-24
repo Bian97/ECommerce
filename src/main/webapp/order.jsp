@@ -29,7 +29,7 @@
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
                     <li><a href="Product?action=load">Produtos</a></li>
-                    <li><a href="EditAccount?action=load">Editar Conta</a></li>
+                    <li><a href="User?action=load">Editar Conta</a></li>
                     <%
                         User user=(User)session.getAttribute("user");
                         if (!user.isType())

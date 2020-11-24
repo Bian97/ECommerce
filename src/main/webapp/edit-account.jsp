@@ -28,7 +28,7 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
-                    <li><a href="products.jsp">Produtos</a></li>
+                    <li><a href="Product?action=load">Produtos</a></li>
                     <%
                         User user=(User)session.getAttribute("user");
                         if (user == null)
@@ -36,9 +36,14 @@
                          %>
                     <li><a href="account.jsp">Conta</a></li>
                     <%  } else {%>
-                    <li><a href="order.jsp">Pedidos</a></li>
-                    <li><a href="EditAccount?action=load">Editar Conta</a></li>
-                    <a href="cart.jsp"><i class="fa fa-shopping-cart"></i></a>
+                            <li><a href="order.jsp">Pedidos</a></li>
+                            <li><a href="EditAccount?action=load">Editar Conta</a></li>
+                            <%
+                                if (!user.isType())
+                                {
+                            %>
+                                    <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
+                            <%  }%>
                     <%  }%>
                 </ul>
             </nav>

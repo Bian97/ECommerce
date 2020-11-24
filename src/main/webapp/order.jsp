@@ -4,6 +4,7 @@
     Author     : Bian
 --%>
 
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,11 +28,17 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
-                    <li><a href="products.jsp">Produtos</a></li>
+                    <li><a href="Product?action=load">Produtos</a></li>
                     <li><a href="EditAccount?action=load">Editar Conta</a></li>
+                    <%
+                        User user=(User)session.getAttribute("user");
+                        if (!user.isType())
+                        {
+                    %>
+                            <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
+                    <%  }%>
                 </ul>
             </nav>
-            <a href="cart.jsp"><i class="fa fa-shopping-cart"></i></a>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
         </div>
     </div>

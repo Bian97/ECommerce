@@ -4,6 +4,7 @@
     Author     : Bian
 --%>
 
+<%@page import="model.Cart"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,86 +28,65 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
-                    <li><a href="products.jsp">Produtos</a></li>
+                    <li><a href="Product?action=load">Produtos</a></li>
                     <li><a href="order.jsp">Pedidos</a></li>
                     <li><a href="EditAccount?action=load">Editar Conta</a></li>
                 </ul>
             </nav>
-            <a href="cart.jsp"><i class="fa fa-shopping-cart"></i></a>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
         </div>
     </div>
 
     <!-- cart items details -->
     <div class="small-container cart-page">
+        <% 
+                final double tax = 35.50;
+                Cart cart=(Cart)session.getAttribute("cart");
+                if(cart != null){
+                double subtotal = cart.getQuantity() * cart.getProduct().getPrice();
+            %>
         <table>
             <tr>
                 <th>Produto</th>
                 <th>Quantidade</th>
                 <th>Subtotal</th>
             </tr>
+            
             <tr>
                 <td>
                     <div class="cart-info">
                         <img src="images/placeholder.png">
                         <div>
-                            <p>Lorem ipsum dolor</p>
-                            <small>Price: R$50,00</small>
+                            <p><%= cart.getProduct().getName()%></p>
+                            <small>Preço: R$<%= cart.getProduct().getPrice()%></small>
                             <br>
                             <a href="">Remover</a>
                         </div>
                     </div>
                 </td>
-                <td><input type="number" value="1"></td>
-                <td>R$50,00</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/placeholder.png">
-                        <div>
-                            <p>Lorem ipsum dolor</p>
-                            <small>Price: R$50,00</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>R$50,00</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/placeholder.png">
-                        <div>
-                            <p>Lorem ipsum dolor</p>
-                            <small>Price: R$50,00</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>R$50,00</td>
+                <td><input type="number" value="<%= cart.getQuantity()%>"></td>
+                <td>R$<%= subtotal%></td>
             </tr>
         </table>
         <div class="total-price">
             <table>
                 <tr>
                     <td>Subtotal</td>
-                    <td>R$200,00</td>
+                    <td>R$<%= subtotal%></td>
                 </tr>
                 <tr>
                     <td>Imposto</td>
-                    <td>R$35,00</td>
+                    <td>R$<%= tax%></td>
                 </tr>
                 <tr>
                     <td>Total</td>
-                    <td>R$230,00</td>
+                    <td>R$<%= subtotal - tax %></td>
                 </tr>
             </table>
         </div>
+                <%} else {%>
+                    <p>O carrinho está vazio!</p>
+                <%}%>
 
     </div>
     <!--footer -->

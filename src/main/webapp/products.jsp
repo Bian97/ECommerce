@@ -71,8 +71,11 @@
                 for(int i = 0; i < products.size(); i++){
                     %>
             <div class="col-4">
-                <img src="images/placeholder.png">
-                <a href="Product?action=select&id=<%= products.get(i).getId() %>"><%= products.get(i).getName() %></a>
+                <a href="Product?action=select&id=<%= products.get(i).getId() %>">
+                    <img src="images/placeholder.png">
+                    <%= products.get(i).getName() %>
+                </a>
+                
                 <p> R$ <%= products.get(i).getPrice() %> </p>
                 <%
                     if(user != null){

@@ -80,7 +80,7 @@
                 </tr>
                 <tr>
                     <td>Total</td>
-                    <td>R$<%= subtotal - tax %></td>
+                    <td>R$<%= subtotal + tax %></td>
                 </tr>
             </table>
         </div>

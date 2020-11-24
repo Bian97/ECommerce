@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Cart;
 import model.Product;
 import model.User;
 
@@ -37,7 +38,7 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String action = request.getParameter("action");            
+            String action = request.getParameter("action");
             DaoCart daoCart = new DaoCart();
             DaoUser daoUser = new DaoUser();
             
@@ -46,13 +47,15 @@ public class CartServlet extends HttpServlet {
                 daoUser.SearchUser(email, response, out, request);
                 daoCart.GetCart(((User)request.getSession().getAttribute("user")).getId(),response, request, out);
                 response.sendRedirect(request.getContextPath() + "/cart.jsp");
-            } else {
-                /*String name = request.getParameter("name");
-                double price = Double.parseDouble(request.getParameter("price"));
-                String description = request.getParameter("description");
-                String imagePath = null;
-                Product product = new Product(name, price, description, imagePath);            
-                daoProduct.AddProduct(product, response, request, out);*/
+            } else if(action.equals("add")) {                
+                Cart cart = new Cart((Product)request.getSession().getAttribute("product"), (User)request.getSession().getAttribute("user"), Integer.parseInt(request.getParameter("quantity")));
+                if(daoCart.AddCart(cart, response, request, out)){
+                    request.getSession().setAttribute("cart", cart);
+                    response.sendRedirect(request.getContextPath() + "/cart.jsp");
+                } else {
+                    out.println("<html><body><b> Deu merda Jamelão"
+                        + "</b></body></html>");
+                }
             }
         }
     }

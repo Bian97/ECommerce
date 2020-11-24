@@ -41,7 +41,8 @@ public class EditAccount extends HttpServlet {
             if(action.equals("load")){            
                 if(((User)request.getSession().getAttribute("user")).getEmail() != null){
                     out.println(((User)request.getSession().getAttribute("user")).getEmail());
-                    daoUser.SearchUser(((User)request.getSession().getAttribute("user")).getEmail(), response, out, request);               
+                    daoUser.SearchUser(((User)request.getSession().getAttribute("user")).getEmail(), response, out, request);
+                    response.sendRedirect(request.getContextPath() + "/edit-account.jsp");
                 }
             } else if (action.equals("edit")){ 
                 String user = request.getParameter("user");

@@ -4,23 +4,25 @@
  * and open the template in the editor.
  */
 
+import dao.DaoCart;
 import dao.DaoProduct;
+import dao.DaoUser;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
+import model.User;
 
 /**
  *
  * @author Bian
  */
-@WebServlet(name = "Product", urlPatterns = {"/Product"})
-public class ProductServlet extends HttpServlet {
+@WebServlet(name = "Cart", urlPatterns = {"/Cart"})
+public class CartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,23 +37,23 @@ public class ProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String action = request.getParameter("action");
-            DaoProduct daoProduct = new DaoProduct();
+            String action = request.getParameter("action");            
+            DaoCart daoCart = new DaoCart();
+            DaoUser daoUser = new DaoUser();
             
-            if(action.equals("load")){            
-                daoProduct.ListProducts(response, request, out);
-                response.sendRedirect(request.getContextPath() + "/products.jsp");
+            if(action.equals("load")){
+                var email = ((User)request.getSession().getAttribute("user")).getEmail();
+                daoUser.SearchUser(email, response, out, request);
+                daoCart.GetCart(((User)request.getSession().getAttribute("user")).getId(),response, request, out);
+                response.sendRedirect(request.getContextPath() + "/cart.jsp");
             } else {
-                String name = request.getParameter("name");
+                /*String name = request.getParameter("name");
                 double price = Double.parseDouble(request.getParameter("price"));
                 String description = request.getParameter("description");
                 String imagePath = null;
                 Product product = new Product(name, price, description, imagePath);            
-                daoProduct.AddProduct(product, response, request, out);
+                daoProduct.AddProduct(product, response, request, out);*/
             }
-            
-            /*DaoProduct daoProduct = new DaoProduct();
-            daoProduct.ListProducts(response, request, out);*/
         }
     }
 

@@ -113,7 +113,6 @@ public class DaoProduct {
 
               ResultSet rs = stmt.executeQuery();
               List<Product> products = new ArrayList<>();
-              out.println("Cheguei aqui");
               while(rs.next())
               {
                 Product product = new Product(rs.getInt("IdProduct"), rs.getString("Name"), rs.getDouble("Price"), rs.getString("Description"), rs.getString("ImagePath"));
@@ -130,6 +129,35 @@ public class DaoProduct {
             }
         } else {
             out.println("Erro de Conexão!!");
+        }
+    }
+    
+    public Product GetProductById(int id, PrintWriter out){
+        Dao dao = new Dao();
+        if(dao.connect())
+        {
+            try
+            {  
+              var stmt = dao.createPreparedStatement("Select * from product where IdProduct = ?");
+              stmt.setInt(1, id);
+
+              ResultSet rs = stmt.executeQuery();
+              if(rs.next())
+              {                  
+                Product product = new Product(rs.getInt("IdProduct"), rs.getString("Name"), rs.getDouble("Price"), rs.getString("Description"), rs.getString("ImagePath"));
+                rs.close();
+                stmt.close();
+                return product;
+              }
+              return null;
+              //response.sendRedirect(request.getContextPath() + "/products.jsp");
+            }  catch(Exception e){
+                out.println("Erro: " + e.getMessage());
+                return null;
+            }
+        } else {
+            out.println("Erro de Conexão!!");
+            return null;
         }
     }
 }

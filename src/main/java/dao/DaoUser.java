@@ -149,13 +149,13 @@ public class DaoUser {
               ResultSet rs = stmt.executeQuery();              
               if(rs.next())
               {
-                User user = new User(rs.getString("Name"),rs.getString("Email"), rs.getString("Password"), rs.getBoolean("Type"));
+                User user = new User(rs.getInt("IdUser"), rs.getString("Name"),rs.getString("Email"), rs.getString("Password"), rs.getBoolean("Type"));
                 
                 request.getSession().setAttribute("user", user);
                 
                 rs.close();
                 stmt.close();
-                response.sendRedirect(request.getContextPath() + "/edit-account.jsp");
+                return;
               }
               rs.close();
               stmt.close();

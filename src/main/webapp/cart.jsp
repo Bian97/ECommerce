@@ -40,17 +40,19 @@
 
     <!-- cart items details -->
     <div class="small-container cart-page">
+        <% 
+                final double tax = 35.50;
+                Cart cart=(Cart)session.getAttribute("cart");
+                if(cart != null){
+                double subtotal = cart.getQuantity() * cart.getProduct().getPrice();
+            %>
         <table>
             <tr>
                 <th>Produto</th>
                 <th>Quantidade</th>
                 <th>Subtotal</th>
             </tr>
-            <% 
-                final double tax = 35.50;
-                Cart cart=(Cart)session.getAttribute("cart");
-                double subtotal = cart.getQuantity() * cart.getProduct().getPrice();
-            %>
+            
             <tr>
                 <td>
                     <div class="cart-info">
@@ -83,6 +85,9 @@
                 </tr>
             </table>
         </div>
+                <%} else {%>
+                    <p>O carrinho está vazio!</p>
+                <%}%>
 
     </div>
     <!--footer -->

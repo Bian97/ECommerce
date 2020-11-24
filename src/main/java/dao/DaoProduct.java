@@ -19,7 +19,7 @@ import model.User;
  * @author Bian
  */
 public class DaoProduct {
-    public void AddProduct(Product product, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
+    public boolean AddProduct(Product product, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
         Dao dao = new Dao();
         if(dao.connect())
         {
@@ -31,24 +31,25 @@ public class DaoProduct {
               stmt.setString(3, product.getDescription());
               stmt.setString(4, product.getImagePath());
 
-              if(stmt.executeUpdate() > 0){                    
-                out.println("<html><body><b>"+product.getName()+" Inserido com sucesso"
-                        + "</b></body></html>");
-              } else{
-                  out.println("Erro no Registro!");
+              if(stmt.executeUpdate() > 0){
+                  stmt.close();
+                  return true;
               }
-
               stmt.close();
+              out.println("Erro no Registro!");
+              return false;
 
             }  catch(Exception e){
                 out.println("Erro: " + e.getMessage());
+                return false;
             }
         } else {
             out.println("Erro de Conexão!!");
+            return false;
         }
     }
     
-    public void UpdateProduct(Product product, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
+    public boolean UpdateProduct(Product product, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
         Dao dao = new Dao();
         if(dao.connect())
         {
@@ -61,24 +62,27 @@ public class DaoProduct {
               stmt.setString(4, product.getImagePath());
               stmt.setInt(5, product.getId());
 
-              if(stmt.executeUpdate() > 0){                    
-                out.println("<html><body><b>"+ product.getName()+" Atualizado com sucesso"
-                        + "</b></body></html>");
+              if(stmt.executeUpdate() > 0){
+                request.getSession().setAttribute("product", product);
+                stmt.close();
+                return true;
               } else{
+                  stmt.close();
                   out.println("Erro no Registro!");
-              }
-
-              stmt.close();
+                  return false;
+              }              
 
             }  catch(Exception e){
                 out.println("Erro: " + e.getMessage());
+                return false;
             }
         } else {
             out.println("Erro de Conexão!!");
+            return false;
         }
     }
     
-    public void DeleteProduct(int id, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
+    public boolean DeleteProduct(int id, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
         Dao dao = new Dao();
         if(dao.connect())
         {
@@ -87,20 +91,20 @@ public class DaoProduct {
               var stmt = dao.createPreparedStatement("delete from product where IdProduct = ?");
               stmt.setInt(1, id);
 
-              if(stmt.executeUpdate() > 0){                    
-                out.println("<html><body><b> Produto apagado com sucesso!"
-                        + "</b></body></html>");
-              } else{
-                  out.println("Erro no Registro!");
+              if(stmt.executeUpdate() > 0){
+                stmt.close();
+                return true;
               }
-
               stmt.close();
+              return false;
 
             }  catch(Exception e){
                 out.println("Erro: " + e.getMessage());
+                return false;
             }
         } else {
             out.println("Erro de Conexão!!");
+            return false;
         }
     }
     public void ListProducts(HttpServletResponse response, HttpServletRequest request, PrintWriter out){

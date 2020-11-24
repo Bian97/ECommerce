@@ -39,14 +39,14 @@
                      %>
                     <li><a href="account.jsp">Conta</a></li>
                     <%  } else {%>
-                    <li><a href="order.jsp">Pedidos</a></li>
-                    <li><a href="User?action=load">Editar Conta</a></li>
-                    <%
-                                if (!user.isType())
-                                {
+                            <li><a href="order.jsp">Pedidos</a></li>
+                            <li><a href="User?action=load">Editar Conta</a></li>
+                            <%
+                            if (!user.isType())
+                            {
                             %>
-                    <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
-                    <%  }%>
+                                <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
+                        <%  }%>
                     <%  }%>
                     <!--<li><a href="products.jsp">Produtos</a></li>-->
                 </ul>
@@ -63,7 +63,7 @@
                 if (!user.isType())
                 {
         %>
-        <a href="register-product.jsp" class="btn">Adicionar Produto</a>
+        <a href="operate-product.jsp?action=save" class="btn">Adicionar Produto</a>
         <%      }
             }%>
         <div class="row">
@@ -79,10 +79,10 @@
                         if (!user.isType())
                         {
                 %>
-                <div class="edit-remove">
-                    <a href="register-product.jsp"> <i class="fa fa-edit"></i></a>
-                    <i class="fa fa-trash"></i>
-                </div>
+                            <div class="edit-remove">
+                                <a href="Product?action=loadDetails&id=<%=products.get(i).getId()%>"> <i class="fa fa-edit"></i></a>
+                                <a href="Product?action=remove&id=<%=products.get(i).getId()%>"><i class="fa fa-trash"></i></a>
+                            </div>
                 <%      }
                     }%>
 
@@ -100,7 +100,7 @@
     <!--footer -->
     <div class="footer">
         <div class="container">
-            <p class="copyright">Trabalho A2 Aplicaï¿½ï¿½es na internet</p>
+            <p class="copyright">Trabalho A2 Aplicações na internet</p>
             <hr>
             <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
         </div>

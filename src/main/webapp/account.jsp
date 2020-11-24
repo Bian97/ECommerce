@@ -28,7 +28,7 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
-                    <li><a href="User?action=load">Produtos</a></li>                    
+                    <li><a href="Product?action=load">Produtos</a></li>                    
                 </ul>
             </nav>
             <i class="fa fa-bars" onclick="menutoggle()"></i>

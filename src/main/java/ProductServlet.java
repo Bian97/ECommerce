@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
+import model.User;
 
 /**
  *
@@ -47,11 +48,36 @@ public class ProductServlet extends HttpServlet {
                 String description = request.getParameter("description");
                 String imagePath = null;
                 Product product = new Product(name, price, description, imagePath);
-                daoProduct.AddProduct(product, response, request, out);
+                if(daoProduct.AddProduct(product, response, request, out)){
+                    response.sendRedirect(request.getContextPath() + "/Product?action=load");
+                }
             } else if(action.equals("select")){
+                if((User)request.getSession().getAttribute("user") != null){
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    request.getSession().setAttribute("product", daoProduct.GetProductById(id, out));
+                    response.sendRedirect(request.getContextPath() + "/product-details.jsp");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/account.jsp");
+                }
+            } else if(action.equals("loadDetails")){
+                if((User)request.getSession().getAttribute("user") != null){
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    request.getSession().setAttribute("product", daoProduct.GetProductById(id, out));
+                    response.sendRedirect(request.getContextPath() + "/operate-product.jsp?action=loadDetails");
+                } else {
+                    response.setStatus(404);
+                }
+            } else if(action.equals("update")){
+                Product product = ((Product)request.getSession().getAttribute("product"));
+                product = new Product(product.getId(), request.getParameter("name"), Double.parseDouble(request.getParameter("price")), request.getParameter("description"), null);
+                if(daoProduct.UpdateProduct(product, response, request, out)){
+                    response.sendRedirect(request.getContextPath() + "/Product?action=load");
+                }
+            } else if (action.equals("remove")){
                 int id = Integer.parseInt(request.getParameter("id"));
-                request.getSession().setAttribute("product", daoProduct.GetProductById(id, out));
-                response.sendRedirect(request.getContextPath() + "/product-details.jsp");
+                if(daoProduct.DeleteProduct(id, response, request, out)){
+                    response.sendRedirect(request.getContextPath() + "/Product?action=load");
+                }
             }
         }
     }

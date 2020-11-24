@@ -35,38 +35,13 @@
         <div class="row">
             <div class="col-2">
                 <img src="images/placeholder.png" width="100%" id="ProductImg">
-                <div class="small-img-row">
-                    <div class="small-img-col">
-                        <img src="images/placeholder.png" class="small-img" width="100%" >
-                    </div>
-                    <div class="small-img-col">
-                        <img src="images/placeholder.png" class="small-img" width="100%">
-                    </div>
-                    <div class="small-img-col">
-                        <img src="images/placeholder.png" class="small-img" width="100%">
-                    </div>
-                    <div class="small-img-col">
-                        <img src="images/placeholder.png" class="small-img" width="100%">
-                    </div>
-                </div>
-
-
             </div>
             <div class="col-2">
-                <p>Lorem / ipsum dolor</p>
                 <h1>Lorem ipsum dolor sit amet</h1>
                 <h4>R$50,00</h4>
-                <select>
-                    <option>Select size</option>
-                    <option>Select size</option>
-                    <option>Select size</option>
-                    <option>Select size</option>
-                    <option>Select size</option>
-                    <option>Select size</option>
-                </select>
                 <input type="number" value="1">
-                <a href="" class="btn">Add to Cart</a>
-                <h3>Product Details <i class="fa fa-indent"></i></h3>
+                <a href="" class="btn">Adicionar ao Carrinho</a>
+                <h3>Descrição <i class="fa fa-indent"></i></h3>
                 <br>
                 <p>Lorem ipsum dolor sit amet,
                     consectetur adipiscing elit.
@@ -79,8 +54,8 @@
     <!-- title -->
     <div class="small-container">
         <div class="row row-2">
-            <h2>Related Products</h2>
-            <p>View More</p>
+            <h2>Outros Produtos</h2>
+            <p>Ver mais</p>
         </div>
     </div>
 
@@ -91,49 +66,21 @@
             <div class="col-4">
                 <img src="images/placeholder.png">
                 <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
                 <p>R$ 50,00</p>
             </div>
             <div class="col-4">
                 <img src="images/placeholder.png">
                 <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
                 <p>R$ 50,00</p>
             </div>
             <div class="col-4">
                 <img src="images/placeholder.png">
                 <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>R$ 50,00</p>
             </div>
             <div class="col-4">
                 <img src="images/placeholder.png">
                 <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
                 <p>R$ 50,00</p>
             </div>
         </div>
@@ -157,22 +104,7 @@
             } else {
                 MenuItems.style.maxHeight = "0px"
             }
-        }
-       
-        var ProductImg = document.getElementById("ProductImg");
-        var SmallImg = document.getElementsByClassName("small-img");
-
-        const changeProductImage = (index) => {
-            return ProductImg.src = SmallImg[index].src
-        }
-        SmallImg[0].onclick = () => changeProductImage(0)
-        SmallImg[1].onclick = () => changeProductImage(1)
-        SmallImg[2].onclick = () => changeProductImage(2)
-        SmallImg[3].onclick = () => changeProductImage(3)
-        console.log(SmallImg[0])
-
-       
-
+        }      
     </script>
 
 </body>

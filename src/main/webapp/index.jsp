@@ -56,65 +56,11 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Aenean efficitur fringilla<br> lorem id tincidunt.
                         Quisque fringilla enim nisi, ac ultricies. </p>
-                    <a href="products.html" class="btn">Veja a lista completa &#8594;</a>
+                    <a href="Product?action=load" class="btn">Veja a lista completa &#8594;</a>
                 </div>
                 <div class="col-2">
                     <img src="images/gamer-computer.png">
                 </div>
-            </div>
-        </div>
-    </div>
-    <!----- featured products ---->
-    <div class="small-container">
-        <h2 class="title">Destaques</h2>
-        <div class="row">
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>R$ 50,00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>R$ 50,00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
-                <p>R$ 50,00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>R$ 50,00</p>
             </div>
         </div>
     </div>

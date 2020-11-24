@@ -18,8 +18,8 @@ import model.User;
  *
  * @author Bian
  */
-@WebServlet(name = "EditAccount", urlPatterns = {"/EditAccount"})
-public class EditAccount extends HttpServlet {
+@WebServlet(name="User", urlPatterns = {"/User"})
+public class UserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,21 +34,54 @@ public class EditAccount extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            DaoUser daoUser = new DaoUser();
-            
             String action = request.getParameter("action");
-            
-            if(action.equals("load")){            
+            DaoUser daoUser = new DaoUser();
+            if(action.equals("load")){  
                 if(((User)request.getSession().getAttribute("user")).getEmail() != null){
                     out.println(((User)request.getSession().getAttribute("user")).getEmail());
                     daoUser.SearchUser(((User)request.getSession().getAttribute("user")).getEmail(), response, out, request);
                     response.sendRedirect(request.getContextPath() + "/edit-account.jsp");
                 }
-            } else if (action.equals("edit")){ 
-                String user = request.getParameter("user");
-                String email = request.getParameter("email");
+            } else if(action.equals("login")){
+                String name = request.getParameter("name");
                 String password = request.getParameter("password");
-                daoUser.EditAccount(user, password, email, response, out, request);
+ 
+                if(daoUser.Login(name, password, out, request, response)){
+                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                } else {
+                    //Colocar alert de usuário não cadastrado
+                    response.sendRedirect(request.getContextPath() + "/account.jsp");
+                }
+            } else if(action.equals("register")){
+                User user = new User(request.getParameter("name"),request.getParameter("email"),request.getParameter("password"));
+                if(daoUser.Register(user, response, request, out)){
+                    response.sendRedirect(request.getContextPath() + "/account.jsp");
+                } else {
+                    response.setStatus(404);
+                }
+                
+            } else if(action.equals("edit")){
+                User user = new User(request.getParameter("name"),request.getParameter("email"),request.getParameter("password"));
+                
+                if(daoUser.EditAccount(user, response, out, request)){
+                    response.sendRedirect(request.getContextPath() + "/edit-account.jsp");
+                } else {
+                    response.setStatus(404);
+                }
+            } else if(action.equals("changePassword")){
+                User user = new User(request.getParameter("email"),request.getParameter("password"));
+                if(daoUser.ChangePassword(user, response, out, request)){
+                    response.sendRedirect(request.getContextPath() + "/account.jsp");
+                } else {
+                    response.setStatus(404);
+                }
+            } else if(action.equals("remove")){
+                User user = new User(request.getParameter("name"),request.getParameter("email"),request.getParameter("password"));
+                if(daoUser.RemoveUser(user, response, out, request)){
+                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                } else {
+                    response.setStatus(404);
+                }
             }
         }
     }

@@ -33,7 +33,6 @@ public class DaoUser {
                 request.getSession().setAttribute("user", user);
                 rs.close();
                 dao.close();
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
                 return true;
               } 
               out.println("<script type=\"text/javascript\">");
@@ -55,85 +54,88 @@ public class DaoUser {
         }
     }
     
-    public void Register(String name, String email, String password, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
+    public boolean Register(User user, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
         Dao dao = new Dao();
         if(dao.connect())
         {
             try
             {  
               var stmt = dao.createPreparedStatement("insert into user (Name, Email, Password, Type) values (?, ?, ?, 0)");
-              stmt.setString(1, name);
-              stmt.setString(2, email);
-              stmt.setString(3, password);
+              stmt.setString(1, user.getName());
+              stmt.setString(2, user.getEmail());
+              stmt.setString(3, user.getPassword());
 
               if(stmt.executeUpdate() > 0){
-                User user = new User(name, email, password, false);
+                user.setType(false);
+                stmt.close();
                 request.getSession().setAttribute("user", user);
-              } else{
-                  out.println("Erro no Registro!");
+                return true;
               }
-
+              out.println("Erro no Registro!");              
               stmt.close();
+              return false;
 
             }  catch(Exception e){
                 out.println("Erro: " + e.getMessage());
+                return false;
             }
         } else {
             out.println("Erro de Conexão!!");
+            return false;
         }
     }
     
-    public void ChangePassword(String password, String email, HttpServletResponse response, PrintWriter out, HttpServletRequest request){
+    public boolean ChangePassword(User user, HttpServletResponse response, PrintWriter out, HttpServletRequest request){
         Dao dao = new Dao();
         if(dao.connect())
         {
             try
             {  
-              var stmt = dao.createPreparedStatement("UPDATE user SET Password = ? WHERE Email LIKE '%"+email+"%'");
-              stmt.setString(1, password);
+              var stmt = dao.createPreparedStatement("UPDATE user SET Password = ? WHERE Email LIKE '%"+user.getEmail()+"%'");
+              stmt.setString(1, user.getPassword());
               
               if(stmt.executeUpdate() > 0){
-                out.println("<html><body><b>Senha alterada com sucesso!"
-                        + "</b></body></html>"); 
-                response.sendRedirect(request.getContextPath() + "/account.jsp");
-              } else{
-                  out.println("E-mail não cadastrado!");
+                  stmt.close();
+                  return true;
               }
-
               stmt.close();
+              out.println("E-mail não cadastrado!");
+              return false;
 
             }  catch(Exception e){
                 out.println("Erro: " + e.getMessage());
+                return false;
             }
-        }      
+        }
+        return false;
     }
     
-    public void EditAccount(String name, String password, String email, HttpServletResponse response, PrintWriter out, HttpServletRequest request){
+    public boolean EditAccount(User user, HttpServletResponse response, PrintWriter out, HttpServletRequest request){
         Dao dao = new Dao();
         if(dao.connect())
         {
             try
             {
-              var stmt = dao.createPreparedStatement("UPDATE user SET Name = ?, Password = ?, Email = ? WHERE Email LIKE '%"+email+"%'");
-              stmt.setString(1, name);
-              stmt.setString(2, password);
-              stmt.setString(3, email);
+              var stmt = dao.createPreparedStatement("UPDATE user SET Name = ?, Password = ?, Email = ? WHERE Email LIKE '%"+user.getEmail()+"%'");
+              stmt.setString(1, user.getName());
+              stmt.setString(2, user.getPassword());
+              stmt.setString(3, user.getEmail());
               
               if(stmt.executeUpdate() > 0){
-                User user = new User(name, email, password);
+                stmt.close();
                 request.getSession().setAttribute("user", user);
-                
-                response.sendRedirect(request.getContextPath() + "/edit-account.jsp");
-              } else{
-                  out.println("Alteração com erro!");
+                return true;
               }
-
               stmt.close();
+              out.println("Alteração com erro!");
+              return false;
 
             }  catch(Exception e){
                 out.println("Erro: " + e.getMessage());
+                return false;
             }
         }
+        return false;
     }
     
     public void SearchUser(String email, HttpServletResponse response, PrintWriter out, HttpServletRequest request){
@@ -162,5 +164,27 @@ public class DaoUser {
                 out.println("Erro: " + e.getMessage());
             }
         }
+    }
+    public boolean RemoveUser(User user, HttpServletResponse response, PrintWriter out, HttpServletRequest request){
+        Dao dao = new Dao();
+        if(dao.connect())
+        {
+            try
+            {  
+              var stmt = dao.createPreparedStatement("delete from user WHERE Email LIKE '%"+user.getEmail()+"%'");
+              
+              if(stmt.executeUpdate() > 0){
+                  request.getSession().setAttribute("user", null);
+                  stmt.close();
+                  return true;
+              }
+              stmt.close();
+              return false;
+            }  catch(Exception e){
+                out.println("Erro: " + e.getMessage());
+                return false;
+            }
+        }
+        return false;
     }
 }

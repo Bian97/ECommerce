@@ -37,16 +37,16 @@
                         if (user == null)
                         {
                      %>
-                            <li><a href="account.jsp">Conta</a></li>
+                    <li><a href="account.jsp">Conta</a></li>
                     <%  } else {%>
-                            <li><a href="order.jsp">Pedidos</a></li>
-                            <li><a href="EditAccount?action=load">Editar Conta</a></li>
-                            <%
+                    <li><a href="order.jsp">Pedidos</a></li>
+                    <li><a href="EditAccount?action=load">Editar Conta</a></li>
+                    <%
                                 if (!user.isType())
                                 {
                             %>
-                                    <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
-                            <%  }%>
+                    <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
+                    <%  }%>
                     <%  }%>
                     <!--<li><a href="products.jsp">Produtos</a></li>-->
                 </ul>
@@ -74,6 +74,18 @@
                 <img src="images/placeholder.png">
                 <h4><%= products.get(i).getName() %></h4>
                 <p> R$ <%= products.get(i).getPrice() %> </p>
+                <%
+                    if(user != null){
+                        if (!user.isType())
+                        {
+                %>
+                <div class="edit-remove">
+                    <a href="register-product.jsp"> <i class="fa fa-edit"></i></a>
+                    <i class="fa fa-trash"></i>
+                </div>
+                <%      }
+                    }%>
+
             </div>
             <%}%>
         </div>
@@ -88,7 +100,7 @@
     <!--footer -->
     <div class="footer">
         <div class="container">
-            <p class="copyright">Trabalho A2 Aplicações na internet</p>
+            <p class="copyright">Trabalho A2 Aplicaï¿½ï¿½es na internet</p>
             <hr>
             <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
         </div>

@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produto</title>
+    <title>Adicionar Produto</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -46,7 +46,7 @@
                     <div class="form-container">                    
                         <input name="name" type="text" placeholder="Nome do Produto">
                         <input name="price" type="number" step="any" placeholder="20,00">
-                        <input name="description" type="text" placeholder="Descrição do Produto">
+                        <input name="description" type="text" placeholder="DescriÃ§Ã£o do Produto">
                         <button type="submit" class="btn">Criar novo Produto</button>                    
                     </div>
                     <br>
@@ -57,7 +57,7 @@
     <!--footer -->
     <div class="footer">
         <div class="container">
-            <p class="copyright">Trabalho A2 Aplicações na internet</p>
+            <p class="copyright">Trabalho A2 AplicaÃ§Ãµes na internet</p>
             <hr>
             <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
         </div>

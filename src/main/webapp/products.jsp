@@ -72,7 +72,7 @@
                     %>
             <div class="col-4">
                 <img src="images/placeholder.png">
-                <h4><%= products.get(i).getName() %></h4>
+                <a href="Product?action=select&id=<%= products.get(i).getId() %>"><%= products.get(i).getName() %></a>
                 <p> R$ <%= products.get(i).getPrice() %> </p>
             </div>
             <%}%>

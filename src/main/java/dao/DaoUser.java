@@ -29,7 +29,7 @@ public class DaoUser {
               ResultSet rs = dao.executeQuery();              
               if(rs.next())
               {
-                User user = new User(rs.getString("Name"),rs.getString("Email"), rs.getString("Password"), rs.getBoolean("Type"));
+                User user = new User(rs.getInt("IdUser"),rs.getString("Name"),rs.getString("Email"), rs.getString("Password"), rs.getBoolean("Type"));
                 request.getSession().setAttribute("user", user);
                 rs.close();
                 dao.close();
@@ -66,9 +66,7 @@ public class DaoUser {
               stmt.setString(2, email);
               stmt.setString(3, password);
 
-              if(stmt.executeUpdate() > 0){                    
-                out.println("<html><body><b>"+name+" Inserido com sucesso"
-                        + "</b></body></html>");
+              if(stmt.executeUpdate() > 0){
                 User user = new User(name, email, password, false);
                 request.getSession().setAttribute("user", user);
               } else{

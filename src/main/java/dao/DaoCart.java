@@ -20,12 +20,14 @@ import model.User;
  * @author Bian
  */
 public class DaoCart {
-    public void AddCart(Cart cart, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
+    public boolean AddCart(Cart cart, HttpServletResponse response, HttpServletRequest request, PrintWriter out){
         Dao dao = new Dao();
         if(dao.connect())
         {
             try
             {  
+              out.println("Usuário: " + cart.getUser().getId());
+              out.println("Produto: " + cart.getProduct().getId());
               var stmt = dao.createPreparedStatement("insert into cart (ProductId, UserId, Quantity) values (?, ?, ?)");
               stmt.setInt(1, cart.getProduct().getId());
               stmt.setInt(2, cart.getUser().getId());
@@ -34,17 +36,20 @@ public class DaoCart {
               if(stmt.executeUpdate() > 0){                    
                 /*out.println("<html><body><b> Item adicionado no carrinho"
                         + "</b></body></html>");*/
+                return true;
               } else{
                   out.println("Erro no Registro!");
-              }
-
-              stmt.close();
+                  stmt.close();
+                  return false;
+              }              
 
             }  catch(Exception e){
                 out.println("Erro: " + e.getMessage());
+                return false;
             }
         } else {
             out.println("Erro de Conexão!!");
+            return false;
         }
     }
     

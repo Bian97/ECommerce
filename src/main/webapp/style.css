@@ -240,6 +240,9 @@ small {
 /* footer */
 
 .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     background: #000;
     color: #8a8a8a;
     font-size: 14px;

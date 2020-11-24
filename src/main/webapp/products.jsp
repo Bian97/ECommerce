@@ -57,13 +57,6 @@
     <div class="small-container">
         <div class="row row-2">
             <h2>Produtos</h2>
-            <select>
-                <option>Default Shorting</option>
-                <option>Default Shorting</option>
-                <option>Default Shorting</option>
-                <option>Default Shorting</option>
-                <option>Default Shorting</option>
-            </select>
         </div>
         <%
             if(user != null){
@@ -80,13 +73,6 @@
             <div class="col-4">
                 <img src="images/placeholder.png">
                 <h4><%= products.get(i).getName() %></h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
                 <p> R$ <%= products.get(i).getPrice() %> </p>
             </div>
             <%}%>

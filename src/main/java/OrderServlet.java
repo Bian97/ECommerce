@@ -58,7 +58,7 @@ public class OrderServlet extends HttpServlet {
                     daoOrder.AddOrder(order, response, request, out);
                     response.sendRedirect(request.getContextPath() + "/Order?action=load");
                 }
-            }
+            } 
         }
     }
 

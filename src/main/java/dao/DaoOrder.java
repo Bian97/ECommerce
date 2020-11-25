@@ -58,7 +58,7 @@ public class DaoOrder {
         if(dao.connect())
         {
             try
-            {  
+            {
               var stmt = dao.createPreparedStatement("select ord.IdOrder, ord.CartId, ord.Date, ord.Status, car.Quantity, car.ProductId, prod.Name, prod.Price, prod.Description, prod.ImagePath, user.IdUser from placeholder.order ord INNER JOIN placeholder.cart car ON ord.CartId = car.IdCart AND car.IsFinished = 1 JOIN placeholder.user user ON car.UserId = user.IdUser AND user.IdUser = ? JOIN placeholder.product prod ON prod.IdProduct = car.ProductId");
               stmt.setInt(1, user.getId());
 

@@ -36,7 +36,7 @@
                          %>
                     <li><a href="account.jsp">Conta</a></li>
                     <%  } else {%>
-                            <li><a href="order.jsp">Pedidos</a></li>
+                            <li><a href="Order?action=load">Pedidos</a></li>
                             <li><a href="User?action=load">Editar Conta</a></li>
                             <%
                                 if (!user.isType())

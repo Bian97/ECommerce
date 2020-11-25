@@ -29,7 +29,7 @@
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
                     <li><a href="Product?action=load">Produtos</a></li>
-                    <li><a href="order.jsp">Pedidos</a></li>
+                    <li><a href="Order?action=load">Pedidos</a></li>
                     <li><a href="User?action=load">Editar Conta</a></li>
                 </ul>
             </nav>

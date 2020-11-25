@@ -10,15 +10,27 @@ package model;
  * @author Bian
  */
 public class Cart {
+    private int id;
     private Product product;
     private User user;
     private int quantity;
+    private boolean finished;
 
-    public Cart(Product product, User user, int quantity) {
+    public Cart(int id, Product product, User user, int quantity, boolean finished) {
+        this.id = id;
         this.product = product;
         this.user = user;
         this.quantity = quantity;
+        this.finished = finished;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }        
    
     public Product getProduct() {
         return product;
@@ -42,5 +54,13 @@ public class Cart {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }    
 }

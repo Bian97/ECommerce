@@ -58,9 +58,9 @@
                         <img src="images/placeholder.png">
                         <div>
                             <p><%= cart.getProduct().getName()%></p>
-                            <small>Preï¿½o: R$<%= cart.getProduct().getPrice()%></small>
+                            <small>Preço: R$<%= cart.getProduct().getPrice()%></small>
                             <br>
-                            <a href="">Remover</a>
+                            <a href="Cart?action=remove">Remover</a>
                         </div>
                     </div>
                 </td>
@@ -84,20 +84,20 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="" class="btn">Comprar</a>
+                        <a href="Order?action=buy" class="btn">Comprar</a>
                     </td>
                 </tr>
             </table>
         </div>
                 <%} else {%>
-                    <p>O carrinho estï¿½ vazio!</p>
+                    <p>O carrinho está vazio!</p>
                 <%}%>
 
     </div>
     <!--footer -->
     <div class="footer">
         <div class="container">
-            <p class="copyright">Trabalho A2 Aplicaï¿½ï¿½es na internet</p>
+            <p class="copyright">Trabalho A2 Aplicações na internet</p>
             <hr>
             <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
         </div>

@@ -4,6 +4,9 @@
     Author     : Bian
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Order"%>
 <%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
@@ -42,7 +45,7 @@
             <i class="fa fa-bars" onclick="menutoggle()"></i>
         </div>
     </div>
-
+    <% List<Order> orders = (ArrayList)session.getAttribute("orders");%>    
     <!-- order -->
     <div class="small-container order-page">
         <table>
@@ -51,33 +54,18 @@
                 <th>Data</th>
                 <th>Status</th>
             </tr>
+            <%for(int i = 0; i < orders.size(); i++){
+            %>
             <tr>
                 <td>
                     <div class="order-info">
-                        <p>Lorem ipsum dolor</p>
+                        <p><%= orders.get(i).getId()%></p>
                     </div>
                 </td>
-                <td>03/12/2019</td>
-                <td>Pagamento Pendente</td>
+                <td><%=orders.get(i).getDate()%></td>
+                <td><%=orders.get(i).getStatus()%></td>
             </tr>
-            <tr>
-                <td>
-                    <div class="order-info">
-                        <p>Lorem ipsum dolor</p>
-                    </div>
-                </td>
-                <td>03/12/2019</td>
-                <td>Pago</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="order-info">
-                        <p>Lorem ipsum dolor</p>
-                    </div>
-                </td>
-                <td>03/12/2019</td>
-                <td>Entrego</td>
-            </tr>
+            <%}%>
         </table>
     </div>
     <!--footer -->

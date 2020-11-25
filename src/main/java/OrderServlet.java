@@ -5,25 +5,29 @@
  */
 
 import dao.DaoCart;
-import dao.DaoProduct;
-import dao.DaoUser;
+import dao.DaoOrder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.sql.Date;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cart;
-import model.Product;
+import model.Order;
 import model.User;
 
 /**
  *
  * @author Bian
  */
-@WebServlet(name = "Cart", urlPatterns = {"/Cart"})
-public class CartServlet extends HttpServlet {
+@WebServlet(name = "Order", urlPatterns = {"/Order"})
+public class OrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,24 +43,22 @@ public class CartServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String action = request.getParameter("action");
-            DaoCart daoCart = new DaoCart();
-            DaoUser daoUser = new DaoUser();
-            
+            DaoOrder daoOrder = new DaoOrder();
+
             if(action.equals("load")){
-                var email = ((User)request.getSession().getAttribute("user")).getEmail();
-                daoUser.SearchUser(email, response, out, request);
-                daoCart.GetCart(((User)request.getSession().getAttribute("user")).getId(),response, request, out);
-                response.sendRedirect(request.getContextPath() + "/cart.jsp");
-            } else if(action.equals("add")) {                
-                Cart cart = new Cart(0,(Product)request.getSession().getAttribute("product"), (User)request.getSession().getAttribute("user"), Integer.parseInt(request.getParameter("quantity")), false);
-                if(daoCart.AddCart(cart, response, request, out)){
-                    request.getSession().setAttribute("cart", cart);
-                    response.sendRedirect(request.getContextPath() + "/cart.jsp");
+                daoOrder.SelectOrders(((User)request.getSession().getAttribute("user")), response, request, out);
+                response.sendRedirect(request.getContextPath() + "/order.jsp");
+            } else if (action.equals("buy")){
+                Date date = new java.sql.Date((new java.util.Date()).getTime());
+                DaoCart daoCart = new DaoCart();
+
+                if(daoCart.BuyProduct(((Cart)request.getSession().getAttribute("cart")), response, request, out)){                
+                    Order order = new Order(0, ((Cart)request.getSession().getAttribute("cart")), date, "Finalizado");
+                    request.getSession().setAttribute("cart", null);
+                    daoOrder.AddOrder(order, response, request, out);
+                    response.sendRedirect(request.getContextPath() + "/Order?action=load");
                 }
-            } else if(action.equals("remove")){
-                    daoCart.DeleteCart(((User)request.getSession().getAttribute("user")).getId(), response, request, out);
-                    response.sendRedirect(request.getContextPath() + "/cart.jsp");
-                }   
+            }
         }
     }
 

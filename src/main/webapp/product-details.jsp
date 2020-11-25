@@ -4,6 +4,7 @@
     Author     : Bian
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="model.Product"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
@@ -46,11 +47,12 @@
             </div>
             <%
                 Product product=(Product)session.getAttribute("product");
-             %>             
+                DecimalFormat priceFormatter = new DecimalFormat("R$#0.00");
+             %>
             <div class="col-2">
                 <form action="Cart?action=add" method="POST">
                     <h1><%= product.getName()%></h1>
-                    <h4>R$ <%= product.getPrice()%></h4>
+                    <h4><%= priceFormatter.format(product.getPrice())%></h4>
                     <input name="quantity" type="number" value="1">
                     <button type="submit" class="btn">Adicionar ao Carrinho</button>
                     <h3>Descrição <i class="fa fa-indent"></i></h3>

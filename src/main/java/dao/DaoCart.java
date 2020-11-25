@@ -84,8 +84,7 @@ public class DaoCart {
         {
             try
             {
-              out.println("Numero: " + id);
-              var stmt = dao.createPreparedStatement("delete from cart where UserId = ?");
+              var stmt = dao.createPreparedStatement("delete from cart where UserId = ? AND IsFinished = 0");
               stmt.setInt(1, id);
 
               if(stmt.executeUpdate() > 0){
@@ -122,15 +121,14 @@ public class DaoCart {
               if(rs.next())
               {
                 cart = new Cart(rs.getInt("IdCart"),new Product(rs.getInt("ProductId"), null, 0, null, null), new User(rs.getInt("UserId"), null, null, null), rs.getInt("Quantity"), rs.getBoolean("IsFinished"));
+                DaoProduct daoProduct = new DaoProduct();
+                cart.setProduct(daoProduct.GetProductById(cart.getProduct().getId(), out));
+                request.getSession().setAttribute("cart", cart);
+              } else {
+                  request.getSession().setAttribute("cart", null);
               }
               rs.close();
-              stmt.close();
-              DaoProduct daoProduct = new DaoProduct();
-              cart.setProduct(daoProduct.GetProductById(cart.getProduct().getId(), out));
-              
-              request.getSession().setAttribute("cart", cart);
-                                          
-              //response.sendRedirect(request.getContextPath() + "/products.jsp");
+              stmt.close();                                          
             }  catch(Exception e){
                 out.println("Erro: " + e.getMessage());
             }
@@ -154,7 +152,6 @@ public class DaoCart {
                   return true;
               }
                stmt.close();
-               out.println("Erro no Registro!");
                return false;
 
             }  catch(Exception e){

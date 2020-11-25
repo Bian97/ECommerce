@@ -4,6 +4,7 @@
     Author     : Bian
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Array"%>
 <%@page import="java.util.List"%>
@@ -60,14 +61,15 @@
         </div>
         <%
             if(user != null){
-                if (!user.isType())
+                if (user.isType())
                 {
         %>
-        <a href="operate-product.jsp?action=save" class="btn">Adicionar Produto</a>
+                    <a href="operate-product.jsp?action=save" class="btn">Adicionar Produto</a>
         <%      }
             }%>
         <div class="row">
             <% List<Product> products = (ArrayList)session.getAttribute("products");
+            DecimalFormat priceFormatter = new DecimalFormat("R$#0.00");
                 for(int i = 0; i < products.size(); i++){
                     %>
             <div class="col-4">
@@ -76,10 +78,10 @@
                     <%= products.get(i).getName() %>
                 </a>
                 
-                <p> R$ <%= products.get(i).getPrice() %> </p>
+                    <p> <%= priceFormatter.format(products.get(i).getPrice()) %> </p>
                 <%
                     if(user != null){
-                        if (!user.isType())
+                        if (user.isType())
                         {
                 %>
                             <div class="edit-remove">

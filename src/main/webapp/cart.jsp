@@ -4,6 +4,7 @@
     Author     : Bian
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="model.Cart"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
@@ -44,6 +45,7 @@
                 Cart cart=(Cart)session.getAttribute("cart");
                 if(cart != null){
                 double subtotal = cart.getQuantity() * cart.getProduct().getPrice();
+                DecimalFormat priceFormatter = new DecimalFormat("R$#0.00");
             %>
         <table>
             <tr>
@@ -58,7 +60,7 @@
                         <img src="images/placeholder.png">
                         <div>
                             <p><%= cart.getProduct().getName()%></p>
-                            <small>Preço: R$<%= cart.getProduct().getPrice()%></small>
+                            <small>Preço: <%= priceFormatter.format(cart.getProduct().getPrice())%></small>
                             <br>
                             <a href="Cart?action=remove">Remover</a>
                         </div>
@@ -72,15 +74,15 @@
             <table>
                 <tr>
                     <td>Subtotal</td>
-                    <td>R$<%= subtotal%></td>
+                    <td><%= priceFormatter.format(subtotal)%></td>
                 </tr>
                 <tr>
                     <td>Imposto</td>
-                    <td>R$<%= tax%></td>
+                    <td><%= priceFormatter.format(tax)%></td>
                 </tr>
                 <tr>
                     <td>Total</td>
-                    <td>R$<%= subtotal + tax %></td>
+                    <td><%= priceFormatter.format(subtotal + tax) %></td>
                 </tr>
                 <tr>
                     <td>

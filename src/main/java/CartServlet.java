@@ -49,8 +49,12 @@ public class CartServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/cart.jsp");
             } else if(action.equals("add")) {                
                 Cart cart = new Cart(0,(Product)request.getSession().getAttribute("product"), (User)request.getSession().getAttribute("user"), Integer.parseInt(request.getParameter("quantity")), false);
+                daoCart.GetCart(((User)request.getSession().getAttribute("user")).getId(), response, request, out);
+                if(((Cart)request.getSession().getAttribute("cart")) != null){
+                   daoCart.DeleteCart(((User)request.getSession().getAttribute("user")).getId(), response, request, out);
+                }
                 if(daoCart.AddCart(cart, response, request, out)){
-                    request.getSession().setAttribute("cart", cart);
+                    daoCart.GetCart(((User)request.getSession().getAttribute("user")).getId(), response, request, out);
                     response.sendRedirect(request.getContextPath() + "/cart.jsp");
                 }
             } else if(action.equals("remove")){

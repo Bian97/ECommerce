@@ -83,4 +83,34 @@ public class DaoOrder {
             out.println("Erro de Conexão!!");
         }
     }
+
+    public void SelectOrder(int orderId, HttpServletResponse response, HttpServletRequest request, PrintWriter out) {
+        Dao dao = new Dao();
+        if(dao.connect())
+        {
+            try
+            {
+              var stmt = dao.createPreparedStatement("select ord.IdOrder, ord.CartId, ord.Date, ord.Status, car.Quantity, car.ProductId, prod.Name, prod.Price, prod.Description, prod.ImagePath, user.IdUser from placeholder.order ord INNER JOIN placeholder.cart car ON ord.CartId = car.IdCart AND car.IsFinished = 1 JOIN placeholder.user user ON car.UserId = user.IdUser JOIN placeholder.product prod ON prod.IdProduct = car.ProductId AND ord.IdOrder = ?");
+              stmt.setInt(1, orderId);
+
+              ResultSet rs = stmt.executeQuery();
+              if(rs.next())
+              {
+                Order order = new Order(rs.getInt("IdOrder"), new Cart(rs.getInt("CartId"), 
+                        new Product(rs.getInt("ProductId"), rs.getString("Name"), rs.getDouble("Price"), rs.getString("Description"), rs.getString("ImagePath")),
+                new User(rs.getInt("IdUser"), null, null, null, false),rs.getInt("Quantity"),true),
+                        rs.getDate("Date"),rs.getString("Status"));
+                
+                request.getSession().setAttribute("order", order);
+              }
+              rs.close();
+              stmt.close();
+
+            }  catch(Exception e){
+                out.println("Erro: " + e.getMessage());
+            }
+        } else {
+            out.println("Erro de Conexão!!");
+        }
+    }
 }

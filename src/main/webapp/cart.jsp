@@ -57,7 +57,7 @@
             <tr>
                 <td>
                     <div class="cart-info">
-                        <img src="images/placeholder.png">
+                        <img src="ProductImages/<%= cart.getProduct().getImagePath()%>">
                         <div>
                             <p><%= cart.getProduct().getName()%></p>
                             <small>Preço: <%= priceFormatter.format(cart.getProduct().getPrice())%></small>
@@ -67,7 +67,7 @@
                     </div>
                 </td>
                 <td><input type="number" value="<%= cart.getQuantity()%>"></td>
-                <td>R$<%= subtotal%></td>
+                <td><%= priceFormatter.format(subtotal)%></td>
             </tr>
         </table>
         <div class="total-price">

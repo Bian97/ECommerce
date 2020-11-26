@@ -42,13 +42,13 @@
     <!-- single product details -->
     <div class="small-container single-product">
         <div class="row">
-            <div class="col-2">
-                <img src="images/placeholder.png" width="100%" id="ProductImg">
-            </div>
             <%
                 Product product=(Product)session.getAttribute("product");
                 DecimalFormat priceFormatter = new DecimalFormat("R$#0.00");
              %>
+            <div class="col-2">
+                <img src="ProductImages/<%= product.getImagePath()%>" width="100%" id="ProductImg">
+            </div>            
             <div class="col-2">
                 <form action="Cart?action=add" method="POST">
                     <h1><%= product.getName()%></h1>

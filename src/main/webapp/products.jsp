@@ -74,7 +74,8 @@
                     %>
             <div class="col-4">
                 <a href="Product?action=select&id=<%= products.get(i).getId() %>">
-                    <img src="images/placeholder.png">
+                    <!--<img src="images/placeholder.png">-->
+                    <img src="<%="ProductImages/"+ products.get(i).getImagePath()%>" alt="">
                     <%= products.get(i).getName() %>
                 </a>
                 
@@ -86,7 +87,7 @@
                 %>
                             <div class="edit-remove">
                                 <a href="Product?action=loadDetails&id=<%=products.get(i).getId()%>"> <i class="fa fa-edit"></i></a>
-                                <a href="Product?action=remove&id=<%=products.get(i).getId()%>"><i class="fa fa-trash"></i></a>
+                                <a href="Product?action=remove&id=<%=products.get(i).getId()%>&file=<%=products.get(i).getImagePath()%>"><i class="fa fa-trash"></i></a>
                             </div>
                 <%      }
                     }%>

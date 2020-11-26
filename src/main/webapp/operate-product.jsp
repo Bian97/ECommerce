@@ -42,10 +42,13 @@
                String action = (String)request.getParameter("action");
                if(action.equals("save")){
             %>
-                <form action="Product?action=save" method="POST">
+            <form action="Product?action=save" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-2">
-                            <img src="images/placeholder.png" width="100%">
+                            <label for="FileInput">
+                                <img id="frame" name="fileInput" src="images/placeholder.png" width="100%">
+                            </label>
+                            <input id="FileInput" name="fileInput" type="file" onchange="preview()" style="cursor: pointer;  display: none"/>
                         </div>
                         <div class="col-2">
                             <div class="form-container">                    
@@ -61,10 +64,13 @@
             <%} else if(action.equals("loadDetails")) {
                 Product product = (Product)session.getAttribute("product");
               %>
-                <form action="Product?action=update" method="POST">
+                <form action="Product?action=update" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-2">
-                            <img src="images/placeholder.png" width="100%">
+                            <label for="FileInput">
+                                <img id="frame" src="ProductImages/<%= product.getImagePath()%>" width="100%" name="fileInput">
+                            </label>
+                            <input id="FileInput" type="file" onchange="preview()" name="fileInput" style="cursor: pointer;  display: none"/>
                         </div>
                         <div class="col-2">
                             <div class="form-container">                    
@@ -98,7 +104,10 @@
             } else {
                 MenuItems.style.maxHeight = "0px"
             }
-        }     
+        }
+        function preview() {
+            frame.src=URL.createObjectURL(event.target.files[0]);
+        }
     </script>
 
 </body>

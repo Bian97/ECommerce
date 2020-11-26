@@ -46,7 +46,7 @@
                 Order order=(Order)session.getAttribute("order");
              %>
             <div class="col-2">
-                <img src="images/placeholder.png" width="100%" id="ProductImg">
+                <img src="ProductImages/<%= order.getCart().getProduct().getImagePath()%>" width="100%" id="ProductImg">
             </div>
             <div class="col-2">
                 <h1><%= order.getCart().getProduct().getName()%></h1>

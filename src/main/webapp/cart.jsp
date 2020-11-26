@@ -4,6 +4,7 @@
     Author     : Bian
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="model.Cart"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
@@ -29,7 +30,7 @@
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
                     <li><a href="Product?action=load">Produtos</a></li>
-                    <li><a href="order.jsp">Pedidos</a></li>
+                    <li><a href="Order?action=load">Pedidos</a></li>
                     <li><a href="User?action=load">Editar Conta</a></li>
                 </ul>
             </nav>
@@ -44,60 +45,60 @@
                 Cart cart=(Cart)session.getAttribute("cart");
                 if(cart != null){
                 double subtotal = cart.getQuantity() * cart.getProduct().getPrice();
-            %>
-        <table>
-            <tr>
-                <th>Produto</th>
-                <th>Quantidade</th>
-                <th>Subtotal</th>
-            </tr>
-            
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/placeholder.png">
-                        <div>
-                            <p><%= cart.getProduct().getName()%></p>
-                            <small>Preï¿½o: R$<%= cart.getProduct().getPrice()%></small>
-                            <br>
-                            <a href="">Remover</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="<%= cart.getQuantity()%>"></td>
-                <td>R$<%= subtotal%></td>
-            </tr>
-        </table>
-        <div class="total-price">
-            <table>
+                DecimalFormat priceFormatter = new DecimalFormat("R$#0.00");
+            %>            
+                <table>
+                <form action="Order?action=buy" method="POST">    
                 <tr>
-                    <td>Subtotal</td>
-                    <td>R$<%= subtotal%></td>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th></th>
                 </tr>
-                <tr>
-                    <td>Imposto</td>
-                    <td>R$<%= tax%></td>
-                </tr>
-                <tr>
-                    <td>Total</td>
-                    <td>R$<%= subtotal + tax %></td>
-                </tr>
+
                 <tr>
                     <td>
-                        <a href="" class="btn">Comprar</a>
+                        <div class="cart-info">
+                            <img src="ProductImages/<%= cart.getProduct().getImagePath()%>">
+                            <div>
+                                <p><%= cart.getProduct().getName()%></p>
+                                <small>Preço: <%= priceFormatter.format(cart.getProduct().getPrice())%></small>
+                                <br>
+                                <a href="Cart?action=remove">Remover</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td><input type="number" id="cartQuantity" name="cartQuantity" onchange="setPrices()" value="<%= cart.getQuantity()%>"></td>
+                    <td>
+                        <button type="submit" class="btn">Comprar</button>
                     </td>
                 </tr>
+                </form>
             </table>
+            <div class="total-price">
+                <table>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td><label id="subTotal" value="<%= priceFormatter.format(subtotal)%>"><%= priceFormatter.format(subtotal)%></label></td>
+                    </tr>
+                    <tr>
+                        <td>Imposto</td>
+                        <td><label id="tax" value="<%= priceFormatter.format(tax)%>"><%= priceFormatter.format(tax)%></label></td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td><label id="total" value="<%= priceFormatter.format(subtotal + tax)%>"><%=priceFormatter.format(subtotal + tax)%></label></td>
+                    </tr>      
+                </table>
         </div>
                 <%} else {%>
-                    <p>O carrinho estï¿½ vazio!</p>
+                    <p>O carrinho está vazio!</p>
                 <%}%>
 
     </div>
     <!--footer -->
     <div class="footer">
         <div class="container">
-            <p class="copyright">Trabalho A2 Aplicaï¿½ï¿½es na internet</p>
+            <p class="copyright">Trabalho A2 Aplicações na internet</p>
             <hr>
             <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
         </div>
@@ -113,6 +114,22 @@
             } else {
                 MenuItems.style.maxHeight = "0px"
             }
+        }
+        
+        function setPrices(){
+            var quantity =  document.getElementById('cartQuantity');
+            var subTotal = document.getElementById('subTotal');
+            var total = document.getElementById('total');
+            
+            var price = <%if(cart != null){ cart.getProduct().getPrice();} else { %>0<% }%>
+            
+            console.log(price);
+            console.log(quantity.value);
+            
+            var subValue = price * quantity.value;
+            subTotal.innerHTML = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format((price * quantity.value));
+            console.log(new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format((price * quantity.value)));
+            total.innerHTML = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format((subValue + 35.5));
         }
     </script>
 

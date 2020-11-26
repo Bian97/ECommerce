@@ -4,6 +4,10 @@
     Author     : Bian
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Order"%>
 <%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
@@ -42,42 +46,33 @@
             <i class="fa fa-bars" onclick="menutoggle()"></i>
         </div>
     </div>
-
+    <% List<Order> orders = (ArrayList)session.getAttribute("orders");%>    
     <!-- order -->
     <div class="small-container order-page">
         <table>
             <tr>
+                <th></th>
                 <th>Pedido</th>
                 <th>Data</th>
+                <th>Total</th>
                 <th>Status</th>
             </tr>
-            <tr>
-                <td>
-                    <div class="order-info">
-                        <p>Lorem ipsum dolor</p>
-                    </div>
-                </td>
-                <td>03/12/2019</td>
-                <td>Pagamento Pendente</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="order-info">
-                        <p>Lorem ipsum dolor</p>
-                    </div>
-                </td>
-                <td>03/12/2019</td>
-                <td>Pago</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="order-info">
-                        <p>Lorem ipsum dolor</p>
-                    </div>
-                </td>
-                <td>03/12/2019</td>
-                <td>Entrego</td>
-            </tr>
+            <%for(int i = 0; i < orders.size(); i++){
+            %>
+                <tr>
+                    <td><small><a href="Order?action=select&id=<%= orders.get(i).getId()%>">Ver detalhes</a></small></td>
+                    <td>
+                        <div class="order-info">
+                            <p><%= orders.get(i).getId()%></p>
+                        </div>
+                    </td>
+                    <%java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
+                    DecimalFormat priceFormatter = new DecimalFormat("R$#0.00");%>
+                    <td><%=df.format(orders.get(i).getDate()) %></td>
+                    <td><%= priceFormatter.format(orders.get(i).getCart().getProduct().getPrice() * orders.get(i).getCart().getQuantity() + 35.5)%></td>
+                    <td><%=orders.get(i).getStatus()%></td>
+                </tr>
+            <%}%>
         </table>
     </div>
     <!--footer -->

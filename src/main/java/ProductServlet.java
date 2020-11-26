@@ -5,21 +5,33 @@
  */
 
 import dao.DaoProduct;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.FileSystems;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.UUID;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import model.Product;
+import model.User;
+import util.FileUtil;
 
 /**
  *
  * @author Bian
  */
 @WebServlet(name = "Product", urlPatterns = {"/Product"})
+@MultipartConfig
 public class ProductServlet extends HttpServlet {
 
     /**
@@ -42,20 +54,79 @@ public class ProductServlet extends HttpServlet {
                 daoProduct.ListProducts(response, request, out);
                 response.sendRedirect(request.getContextPath() + "/products.jsp");
             } else if (action.equals("save")) {
+                try{
+                Part filePart = request.getPart("fileInput");                
+                String source = this.getServletContext().getRealPath("/ProductImages/");
+                InputStream input = filePart.getInputStream();
+                FileUtil fileUtil = new FileUtil();
+                String imageName = UUID.randomUUID().toString() + ".jpg";
+                String destiny = source;
+
+                fileUtil.WriteFileToPath(source, imageName, input);
+                fileUtil.WriteCopy(source, imageName, destiny, filePart.getInputStream());
+                
                 String name = request.getParameter("name");
                 double price = Double.parseDouble(request.getParameter("price"));
                 String description = request.getParameter("description");
-                String imagePath = null;
-                Product product = new Product(name, price, description, imagePath);
-                daoProduct.AddProduct(product, response, request, out);
+                Product product = new Product(name, price, description, imageName);
+                response.sendRedirect(request.getContextPath() + "/Product?action=load");
+
+                if(daoProduct.AddProduct(product, response, request, out)){
+                    request.getSession().setAttribute("products", null);
+                    response.sendRedirect(request.getContextPath() + "/Product?action=load");
+                }
+                } catch (Exception e){
+                    out.println(e);
+                }
             } else if(action.equals("select")){
+                if((User)request.getSession().getAttribute("user") != null){
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    request.getSession().setAttribute("product", daoProduct.GetProductById(id, out));
+                    response.sendRedirect(request.getContextPath() + "/product-details.jsp");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/account.jsp");
+                }
+            } else if(action.equals("loadDetails")){
+                if((User)request.getSession().getAttribute("user") != null){
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    request.getSession().setAttribute("product", daoProduct.GetProductById(id, out));
+                    response.sendRedirect(request.getContextPath() + "/operate-product.jsp?action=loadDetails");
+                } else {
+                    response.setStatus(404);
+                }
+            } else if(action.equals("update")){
+                Product product = ((Product)request.getSession().getAttribute("product"));
+                Part filePart = request.getPart("fileInput");
+                String source = this.getServletContext().getRealPath("/ProductImages/");
+                
+                InputStream input = filePart.getInputStream();
+                FileUtil fileUtil = new FileUtil();
+                if(fileUtil.DeleteFile(source, product.getImagePath())){
+                    String imageName = UUID.randomUUID().toString() + ".jpg";
+                    fileUtil.WriteFileToPath(source, imageName, input);
+                    String destiny = source;
+                    fileUtil.WriteCopy(source, imageName, destiny, filePart.getInputStream());
+
+                    product = new Product(product.getId(), request.getParameter("name"), Double.parseDouble(request.getParameter("price")), request.getParameter("description"), imageName);
+                    if(daoProduct.UpdateProduct(product, response, request, out)){
+                        request.getSession().setAttribute("products", null);
+                        response.sendRedirect(request.getContextPath() + "/Product?action=load");
+                    }
+                }
+            } else if (action.equals("remove")){
                 int id = Integer.parseInt(request.getParameter("id"));
-                request.getSession().setAttribute("product", daoProduct.GetProductById(id, out));
-                response.sendRedirect(request.getContextPath() + "/product-details.jsp");
+                String name = request.getParameter("file");
+                String path = this.getServletContext().getRealPath("/ProductImages/");
+                FileUtil fileUtil = new FileUtil();
+                if(fileUtil.DeleteFile(path, name)){
+                    if(daoProduct.DeleteProduct(id, response, request, out)){
+                        response.sendRedirect(request.getContextPath() + "/Product?action=load");
+                    }
+                }
             }
         }
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

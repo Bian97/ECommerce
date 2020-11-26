@@ -4,6 +4,7 @@
     Author     : Bian
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Array"%>
 <%@page import="java.util.List"%>
@@ -39,14 +40,14 @@
                      %>
                     <li><a href="account.jsp">Conta</a></li>
                     <%  } else {%>
-                    <li><a href="order.jsp">Pedidos</a></li>
-                    <li><a href="User?action=load">Editar Conta</a></li>
-                    <%
-                                if (!user.isType())
-                                {
+                            <li><a href="Order?action=load">Pedidos</a></li>
+                            <li><a href="User?action=load">Editar Conta</a></li>
+                            <%
+                            if (!user.isType())
+                            {
                             %>
-                    <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
-                    <%  }%>
+                                <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
+                        <%  }%>
                     <%  }%>
                     <!--<li><a href="products.jsp">Produtos</a></li>-->
                 </ul>
@@ -60,32 +61,34 @@
         </div>
         <%
             if(user != null){
-                if (!user.isType())
+                if (user.isType())
                 {
         %>
-        <a href="register-product.jsp" class="btn">Adicionar Produto</a>
+                    <a href="operate-product.jsp?action=save" class="btn">Adicionar Produto</a>
         <%      }
             }%>
         <div class="row">
             <% List<Product> products = (ArrayList)session.getAttribute("products");
+            DecimalFormat priceFormatter = new DecimalFormat("R$#0.00");
                 for(int i = 0; i < products.size(); i++){
                     %>
             <div class="col-4">
                 <a href="Product?action=select&id=<%= products.get(i).getId() %>">
-                    <img src="images/placeholder.png">
+                    <!--<img src="images/placeholder.png">-->
+                    <img src="<%="ProductImages/"+ products.get(i).getImagePath()%>" alt="">
                     <%= products.get(i).getName() %>
                 </a>
                 
-                <p> R$ <%= products.get(i).getPrice() %> </p>
+                    <p> <%= priceFormatter.format(products.get(i).getPrice()) %> </p>
                 <%
                     if(user != null){
-                        if (!user.isType())
+                        if (user.isType())
                         {
                 %>
-                <div class="edit-remove">
-                    <a href="register-product.jsp"> <i class="fa fa-edit"></i></a>
-                    <i class="fa fa-trash"></i>
-                </div>
+                            <div class="edit-remove">
+                                <a href="Product?action=loadDetails&id=<%=products.get(i).getId()%>"> <i class="fa fa-edit"></i></a>
+                                <a href="Product?action=remove&id=<%=products.get(i).getId()%>&file=<%=products.get(i).getImagePath()%>"><i class="fa fa-trash"></i></a>
+                            </div>
                 <%      }
                     }%>
 
@@ -103,7 +106,7 @@
     <!--footer -->
     <div class="footer">
         <div class="container">
-            <p class="copyright">Trabalho A2 Aplicaï¿½ï¿½es na internet</p>
+            <p class="copyright">Trabalho A2 Aplicações na internet</p>
             <hr>
             <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
         </div>

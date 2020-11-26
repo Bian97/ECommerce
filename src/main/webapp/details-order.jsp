@@ -34,7 +34,7 @@
                     <li><a href="User?action=load">Editar Conta</a></li>
                 </ul>
             </nav>
-            <a href="cart.jsp"><i class="fa fa-shopping-cart"></i></a>
+            <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
         </div>
     </div>

@@ -143,8 +143,9 @@ public class DaoCart {
         {
             try
             {  
-              var stmt = dao.createPreparedStatement("update cart set IsFinished = 1 where UserId = ?");
-              stmt.setInt(1, cart.getUser().getId());
+              var stmt = dao.createPreparedStatement("update cart set IsFinished = 1, Quantity = ? where UserId = ? AND IsFinished = 0");
+              stmt.setInt(1, cart.getQuantity());
+              stmt.setInt(2, cart.getUser().getId());
 
               if(stmt.executeUpdate() > 0){
                   stmt.close();

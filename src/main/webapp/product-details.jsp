@@ -4,6 +4,7 @@
     Author     : Bian
 --%>
 
+<%@page import="model.User"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="model.Product"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
@@ -26,6 +27,11 @@
             <div class="logo">
                 <a href="index.jsp"><img src="images/placeholder-logo.png" width="125px"></a>
             </div>
+            <%
+                User user=(User)session.getAttribute("user");
+                Product product=(Product)session.getAttribute("product");
+                DecimalFormat priceFormatter = new DecimalFormat("R$#0.00");
+             %>
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
@@ -34,18 +40,14 @@
                     <li><a href="User?action=load">Editar Conta</a></li>
                 </ul>
             </nav>
-            <a href="cart.jsp"><i class="fa fa-shopping-cart"></i></a>
+            <% if(!user.isType()){%><a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a><%}%>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
         </div>
     </div>
 
     <!-- single product details -->
     <div class="small-container single-product">
-        <div class="row">
-            <%
-                Product product=(Product)session.getAttribute("product");
-                DecimalFormat priceFormatter = new DecimalFormat("R$#0.00");
-             %>
+        <div class="row">            
             <div class="col-2">
                 <img src="ProductImages/<%= product.getImagePath()%>" width="100%" id="ProductImg">
             </div>            
@@ -54,7 +56,7 @@
                     <h1><%= product.getName()%></h1>
                     <h4><%= priceFormatter.format(product.getPrice())%></h4>
                     <input name="quantity" type="number" value="1">
-                    <button type="submit" class="btn">Adicionar ao Carrinho</button>
+                    <% if(!user.isType()){%> <button type="submit" class="btn">Adicionar ao Carrinho</button><%}%>
                     <h3>Descrição <i class="fa fa-indent"></i></h3>
                     <br>
                     <p><%= product.getDescription()%></p>

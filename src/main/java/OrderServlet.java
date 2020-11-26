@@ -52,14 +52,16 @@ public class OrderServlet extends HttpServlet {
                 Date date = new java.sql.Date((new java.util.Date()).getTime());
                 DaoCart daoCart = new DaoCart();
                 Cart cart = (Cart)request.getSession().getAttribute("cart");
+                int quantity = Integer.parseInt(request.getParameter("cartQuantity"));
+                cart.setQuantity(quantity);
 
                 daoCart.BuyProduct(cart, response, request, out);
                 Order order = new Order(0, cart, date, "Finalizado");
                 request.getSession().setAttribute("cart", null);
+                
                 if(daoOrder.AddOrder(order, response, request, out)){
                     response.sendRedirect(request.getContextPath() + "/Order?action=load");
                 }
-                
             } else if (action.equals("select")){
                 daoOrder.SelectOrder(Integer.parseInt(request.getParameter("id")), response, request, out);
                 response.sendRedirect(request.getContextPath() + "/details-order.jsp");

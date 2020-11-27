@@ -66,6 +66,7 @@
                                 <a href="Cart?action=remove">Remover</a>
                             </div>
                         </div>
+                        <input type="hidden" id="price" name="price" value="<%=cart.getProduct().getPrice()%>"> 
                     </td>
                     <td><input type="number" id="cartQuantity" name="cartQuantity" onchange="setPrices()" value="<%= cart.getQuantity()%>"></td>
                     <td>
@@ -120,11 +121,7 @@
             var quantity =  document.getElementById('cartQuantity');
             var subTotal = document.getElementById('subTotal');
             var total = document.getElementById('total');
-            
-            var price = <%if(cart != null){ cart.getProduct().getPrice();} else { %>0<% }%>
-            
-            console.log(price);
-            console.log(quantity.value);
+            var price = document.getElementById('price').value;
             
             var subValue = price * quantity.value;
             subTotal.innerHTML = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format((price * quantity.value));

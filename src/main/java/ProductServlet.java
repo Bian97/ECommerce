@@ -98,20 +98,22 @@ public class ProductServlet extends HttpServlet {
                 Product product = ((Product)request.getSession().getAttribute("product"));
                 Part filePart = request.getPart("fileInput");
                 String source = this.getServletContext().getRealPath("/ProductImages/");
-                
-                InputStream input = filePart.getInputStream();
                 FileUtil fileUtil = new FileUtil();
-                if(fileUtil.DeleteFile(source, product.getImagePath())){
-                    String imageName = UUID.randomUUID().toString() + ".jpg";
+                String imageName = product.getImagePath();
+                
+                if(filePart.getSize() > 0){
+                    InputStream input = filePart.getInputStream();
+                    fileUtil.DeleteFile(source, product.getImagePath());
+                    imageName = UUID.randomUUID().toString() + ".jpg";
                     fileUtil.WriteFileToPath(source, imageName, input);
                     String destiny = source;
                     fileUtil.WriteCopy(source, imageName, destiny, filePart.getInputStream());
+                }                
 
-                    product = new Product(product.getId(), request.getParameter("name"), Double.parseDouble(request.getParameter("price")), request.getParameter("description"), imageName);
-                    if(daoProduct.UpdateProduct(product, response, request, out)){
-                        request.getSession().setAttribute("products", null);
-                        response.sendRedirect(request.getContextPath() + "/Product?action=load");
-                    }
+                product = new Product(product.getId(), request.getParameter("name"), Double.parseDouble(request.getParameter("price")), request.getParameter("description"), imageName);
+                if(daoProduct.UpdateProduct(product, response, request, out)){
+                    request.getSession().setAttribute("products", null);
+                    response.sendRedirect(request.getContextPath() + "/Product?action=load");
                 }
             } else if (action.equals("remove")){
                 int id = Integer.parseInt(request.getParameter("id"));

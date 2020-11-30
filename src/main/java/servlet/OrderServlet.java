@@ -67,6 +67,9 @@ public class OrderServlet extends HttpServlet {
             } else if (action.equals("select")){
                 daoOrder.SelectOrder(Integer.parseInt(request.getParameter("id")), response, request, out);
                 response.sendRedirect(request.getContextPath() + "/details-order.jsp");
+            } else if (action.equals("loadAdmin")){
+                daoOrder.ListAdminOrders(response, request, out);
+                response.sendRedirect(request.getContextPath() + "/admin-orders.jsp");
             }
         }
     }

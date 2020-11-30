@@ -42,6 +42,7 @@
                     <%  } else {%>
                             <li><a href="Order?action=load">Pedidos</a></li>
                             <li><a href="User?action=load">Editar Conta</a></li>
+                            <li><a href="User?action=exit">Sair</a></li>
                             <%
                             if (!user.isType())
                             {

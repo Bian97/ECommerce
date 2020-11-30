@@ -25,6 +25,13 @@
             <div class="logo">
                 <a href="index.jsp"><img src="images/placeholder-logo.png" width="125px"></a>
             </div>
+            <%
+                User user=(User)session.getAttribute("user");
+                if (user != null)
+                {
+                    response.sendRedirect(request.getContextPath() + "/edit-account.jsp");
+                }
+             %>
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
@@ -53,7 +60,7 @@
                             <input name="name" type="text" placeholder="Usuario">
                             <input name="password" type="password" placeholder="Senha">
                             <button type="submit" class="btn">Login</button>
-                            <a href="forgot-password.html">Esqueci a Senha</a>
+                            <a href="forgot-password.jsp">Esqueci a Senha</a>
                         </form>
                         <form id="RegForm" action="User?action=register" method="POST">
                             <input name="name" type="text" placeholder="Usuario">

@@ -20,6 +20,12 @@
 </head>
 
 <body>
+    <%
+        User user=(User)session.getAttribute("user");
+        if (user == null)
+        { 
+            response.sendRedirect(request.getContextPath() + "/account.jsp");
+        } else { %>
     <div class="container">
         <div class="navbar">
             <div class="logo">
@@ -28,23 +34,16 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
-                    <li><a href="Product?action=load">Produtos</a></li>
-                    <%
-                        User user=(User)session.getAttribute("user");
-                        if (user == null)
-                        {
-                         %>
-                    <li><a href="account.jsp">Conta</a></li>
-                    <%  } else {%>
+                    <li><a href="Product?action=load">Produtos</a></li>                        
                             <li><a href="Order?action=load">Pedidos</a></li>
                             <li><a href="User?action=load">Editar Conta</a></li>
+                            <li><a href="User?action=exit">Sair</a></li>
                             <%
                                 if (!user.isType())
                                 {
                             %>
                                     <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
                             <%  }%>
-                    <%  }%>
                 </ul>
             </nav>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
@@ -78,6 +77,7 @@
             </div>
         </div>
     </div>
+       <%}%>
     <!--footer -->
     <div class="footer">
         <div class="container">

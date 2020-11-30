@@ -31,6 +31,11 @@
                 User user=(User)session.getAttribute("user");
                 Product product=(Product)session.getAttribute("product");
                 DecimalFormat priceFormatter = new DecimalFormat("R$#0.00");
+                
+                if (user == null)
+                {
+                    response.sendRedirect(request.getContextPath() + "/account.jsp");
+                } else {
              %>
             <nav>
                 <ul id="MenuItems">
@@ -38,6 +43,7 @@
                     <li><a href="Product?action=load">Produtos</a></li>
                     <li><a href="Order?action=load">Pedidos</a></li>
                     <li><a href="User?action=load">Editar Conta</a></li>
+                    <li><a href="User?action=exit">Sair</a></li>
                 </ul>
             </nav>
             <% if(!user.isType()){%><a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a><%}%>
@@ -99,6 +105,7 @@
             </div>
         </div>
     </div>
+    <%}%>
     <!--footer -->
     <div class="footer">
         <div class="container">

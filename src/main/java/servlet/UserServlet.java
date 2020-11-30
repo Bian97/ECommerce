@@ -1,3 +1,5 @@
+package servlet;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -49,7 +51,6 @@ public class UserServlet extends HttpServlet {
                 if(daoUser.Login(name, password, out, request, response)){
                     response.sendRedirect(request.getContextPath() + "/index.jsp");
                 } else {
-                    //Colocar alert de usuário não cadastrado
                     response.sendRedirect(request.getContextPath() + "/account.jsp");
                 }
             } else if(action.equals("register")){
@@ -82,6 +83,10 @@ public class UserServlet extends HttpServlet {
                 } else {
                     response.setStatus(404);
                 }
+            } else if (action.equals("exit")){
+                request.getSession().setAttribute("user", null);
+                request.getSession().invalidate();
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
             }
         }
     }

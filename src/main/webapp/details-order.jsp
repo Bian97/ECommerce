@@ -4,6 +4,7 @@
     Author     : Bian
 --%>
 
+<%@page import="model.User"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="model.Order"%>
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
@@ -26,12 +27,20 @@
             <div class="logo">
                 <a href="index.jsp"><img src="images/placeholder-logo.png" width="125px"></a>
             </div>
+            <%
+                User user=(User)session.getAttribute("user");
+                if (user == null)
+                {
+                    response.sendRedirect(request.getContextPath() + "/account.jsp");
+                }
+             %>
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.jsp">Home</a></li>
                     <li><a href="Product?action=load">Produtos</a></li>
                     <li><a href="Order?action=load">Pedidos</a></li>
                     <li><a href="User?action=load">Editar Conta</a></li>
+                    <li><a href="User?action=exit">Sair</a></li>
                 </ul>
             </nav>
             <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>

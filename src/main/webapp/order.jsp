@@ -34,13 +34,20 @@
                     <li><a href="index.jsp">Home</a></li>
                     <li><a href="Product?action=load">Produtos</a></li>
                     <li><a href="User?action=load">Editar Conta</a></li>
+                    <li><a href="User?action=exit">Sair</a></li>
                     <%
                         User user=(User)session.getAttribute("user");
-                        if (!user.isType())
+                        
+                        if (user == null)
                         {
-                    %>
-                            <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
-                    <%  }%>
+                            response.sendRedirect(request.getContextPath() + "/account.jsp");
+                        } else {
+                        
+                            if (!user.isType())
+                            {
+                        %>
+                                <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
+                        <%  }%>
                 </ul>
             </nav>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
@@ -75,6 +82,7 @@
             <%}%>
         </table>
     </div>
+    <%}%>
     <!--footer -->
     <div class="footer">
         <div class="container">

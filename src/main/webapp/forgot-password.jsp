@@ -1,10 +1,20 @@
+<%-- 
+    Document   : forgot-password
+    Created on : 30 de nov. de 2020, 10:10:42
+    Author     : Bian
+--%>
+
+<%@page import="model.User"%>
+<%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
+    <%
+        User user=(User)session.getAttribute("user");
+        if (user == null)
+        {
+            response.sendRedirect(request.getContextPath() + "/account.jsp");
+        }
+     %>
     <head>
         <title>Esqueci a senha</title>
         <meta charset="windows-1252">

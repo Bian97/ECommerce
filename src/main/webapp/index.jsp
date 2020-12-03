@@ -53,10 +53,8 @@
             </div>
             <div class="row">
                 <div class="col-2">
-                    <h1> Lorem ipsum dolor<br>sit amet!</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Aenean efficitur fringilla<br> lorem id tincidunt.
-                        Quisque fringilla enim nisi, ac ultricies. </p>
+                    <h1> Melhores Computadores aqui!<br>Confira já!</h1>
+                    <p>Confira já os computadores com as peças mais recentes do mercado.<br> Basta você clicar no botão abaixo e aproveitar os melhores preços e as melhores máquinas!</p>
                     <a href="Product?action=load" class="btn">Veja a lista completa &#8594;</a>
                 </div>
                 <div class="col-2">

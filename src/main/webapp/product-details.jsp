@@ -63,57 +63,14 @@
                     <h4><%= priceFormatter.format(product.getPrice())%></h4>
                     <input name="quantity" type="number" value="1">
                     <% if(!user.isType()){%> <button type="submit" class="btn">Adicionar ao Carrinho</button><%}%>
-                    <h3>Descrição <i class="fa fa-indent"></i></h3>
+                    <h3>Descriï¿½ï¿½o <i class="fa fa-indent"></i></h3>
                     <br>
                     <p><%= product.getDescription()%></p>
                 </form>
             </div>
         </div>
     </div>
-
-    <!-- title -->
-    <div class="small-container">
-        <div class="row row-2">
-            <h2>Outros Produtos</h2>
-            <p>Ver mais</p>
-        </div>
-    </div>
-
-    <!-- products -->
-
-    <div class="small-container">
-        <div class="row">
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <p>R$ 50,00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <p>R$ 50,00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <p>R$ 50,00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/placeholder.png">
-                <h4>Lorem ipsum dolor</h4>
-                <p>R$ 50,00</p>
-            </div>
-        </div>
-    </div>
     <%}%>
-    <!--footer -->
-    <div class="footer">
-        <div class="container">
-            <p class="copyright">Trabalho A2 Aplicações na internet</p>
-            <hr>
-            <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
-        </div>
-    </div>
 
     <script>
         var MenuItems = document.getElementById("MenuItems");

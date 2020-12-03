@@ -63,21 +63,12 @@
                 <h4>Valor: <%= priceFormatter.format(order.getCart().getProduct().getPrice())%></h4>
                 <h5>Quantidade: <%= order.getCart().getQuantity() %></h5>
                 <br>
-                <h3>Descrição <i class="fa fa-indent"></i></h3>
+                <h3>Descriï¿½ï¿½o <i class="fa fa-indent"></i></h3>
                 <p><%= order.getCart().getProduct().getDescription()%></p>
                 <br>
                 <%java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");%>
                 <h2> <%=df.format(order.getDate()) %> - <%= order.getStatus() %></h2>
             </div>
-        </div>
-    </div>
-
-    <!--footer -->
-    <div class="footer">
-        <div class="container">
-            <p class="copyright">Trabalho A2 Aplicações na internet</p>
-            <hr>
-            <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
         </div>
     </div>
 

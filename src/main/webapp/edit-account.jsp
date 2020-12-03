@@ -78,13 +78,6 @@
         </div>
     </div>
        <%}%>
-    <!--footer -->
-    <div class="footer">
-        <div class="container">
-            <p class="copyright">Trabalho A2 Aplicações na internet</p>
-            <hr>
-            <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
-        </div>
 
 </body>
 

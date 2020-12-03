@@ -73,7 +73,7 @@
                             <img src="ProductImages/<%= cart.getProduct().getImagePath()%>">
                             <div>
                                 <p><%= cart.getProduct().getName()%></p>
-                                <small>Preço: <%= priceFormatter.format(cart.getProduct().getPrice())%></small>
+                                <small>Preï¿½o: <%= priceFormatter.format(cart.getProduct().getPrice())%></small>
                                 <br>
                                 <a href="Cart?action=remove">Remover</a>
                             </div>
@@ -104,19 +104,11 @@
                 </table>
         </div>
                 <%} else {%>
-                    <p>O carrinho está vazio!</p>
+                    <p>O carrinho estï¿½ vazio!</p>
                 <%}%>
 
     </div>
     <%}%>
-    <!--footer -->
-    <div class="footer">
-        <div class="container">
-            <p class="copyright">Trabalho A2 Aplicações na internet</p>
-            <hr>
-            <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
-        </div>
-    </div>
 
     <script>
         var MenuItems = document.getElementById("MenuItems");

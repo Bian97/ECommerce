@@ -52,7 +52,7 @@
     <div class="small-container order-page">
         <table>
             <tr>
-                <th>Usuário</th>
+                <th>Usuï¿½rio</th>
                 <th>Item</th>
                 <th>Quantidade de itens</th>
                 <th>Data de compra</th>
@@ -69,15 +69,7 @@
         </table>
     </div>
     <%}%>
-    <!--footer -->
-    <div class="footer">
-        <div class="container">
-            <p class="copyright">Trabalho A2 Aplicações na internet</p>
-            <hr>
-            <p class="copyright">Copyright 2020 - Placeholder, Victor Franklin, Bian Medeiros, Alexandre</p>
-        </div>
-    </div>
-
+    
     <script>
         var MenuItems = document.getElementById("MenuItems");
         MenuItems.style.maxHeight = "0px";

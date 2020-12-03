@@ -38,7 +38,6 @@ public class DaoUser {
               out.println("<script type=\"text/javascript\">");
               out.println("alert('Usuário e/ou senha inválido(s)!');");
               out.println("</script>");
-              //out.println("Usuário e/ou senha inválido");
               rs.close();
               dao.close();
               return false;

@@ -53,8 +53,8 @@
             </div>
             <div class="row">
                 <div class="col-2">
-                    <h1> Melhores Computadores aqui!<br>Confira jï¿½!</h1>
-                    <p>Confira jï¿½ os computadores com as peï¿½as mais recentes do mercado.<br> Basta vocï¿½ clicar no botï¿½o abaixo e aproveitar os melhores preï¿½os e as melhores mï¿½quinas!</p>
+                    <h1> Melhores Computadores aqui!<br>Confira já!</h1>
+                    <p>Confira já os computadores com as peças mais recentes do mercado.<br> Basta você clicar no botão abaixo, aproveitar os melhores preços e as melhores máquinas!</p>
                     <a href="Product?action=load" class="btn">Veja a lista completa &#8594;</a>
                 </div>
                 <div class="col-2">

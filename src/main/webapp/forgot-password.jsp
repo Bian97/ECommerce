@@ -8,13 +8,6 @@
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
 <html>
-    <%
-        User user=(User)session.getAttribute("user");
-        if (user == null)
-        {
-            response.sendRedirect(request.getContextPath() + "/account.jsp");
-        }
-     %>
     <head>
         <title>Esqueci a senha</title>
         <meta charset="windows-1252">

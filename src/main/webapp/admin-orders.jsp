@@ -52,7 +52,7 @@
     <div class="small-container order-page">
         <table>
             <tr>
-                <th>Usuï¿½rio</th>
+                <th>Usuário</th>
                 <th>Item</th>
                 <th>Quantidade de itens</th>
                 <th>Data de compra</th>

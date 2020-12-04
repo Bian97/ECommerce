@@ -63,7 +63,7 @@
                             <div class="form-container">                    
                                 <input name="name" type="text" placeholder="Nome do Produto">
                                 <input name="price" type="number" step="any" placeholder="20,00">
-                                <input name="description" type="text" placeholder="Descriï¿½ï¿½o do Produto">
+                                <input name="description" type="text" placeholder="Descrição do Produto">
                                 <button type="submit" class="btn">Criar novo Produto</button>                    
                             </div>
                             <br>
@@ -85,7 +85,7 @@
                             <div class="form-container">                    
                                 <input name="name" type="text" placeholder="Nome do Produto" value="<%= product.getName() %>">
                                 <input name="price" type="number" step="any" placeholder="20,00" value="<%= product.getPrice() %>">
-                                <input name="description" type="text" placeholder="Descriï¿½ï¿½o do Produto" value="<%= product.getDescription() %>">
+                                <input name="description" type="text" placeholder="Descrição do Produto" value="<%= product.getDescription() %>">
                                 <button type="submit" class="btn">Salvar alteração</button>
                             </div>
                             <br>

@@ -46,8 +46,7 @@
                             if (!user.isType())
                             {
                     %>
-                                <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>
-                        <%  } else { response.sendRedirect(request.getContextPath() + "/Order?action=loadAdmin"); }%>
+                                <a href="Cart?action=load"><i class="fa fa-shopping-cart"></i></a>                        
                 </ul>
             </nav>
             <i class="fa fa-bars" onclick="menutoggle()"></i>
@@ -82,6 +81,7 @@
             <%}%>
         </table>
     </div>
+        <%  } else { response.sendRedirect(request.getContextPath() + "/Order?action=loadAdmin"); }%>
     <%}%>    
 
     <script>

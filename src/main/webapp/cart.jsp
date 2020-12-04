@@ -73,7 +73,7 @@
                             <img src="ProductImages/<%= cart.getProduct().getImagePath()%>">
                             <div>
                                 <p><%= cart.getProduct().getName()%></p>
-                                <small>Preï¿½o: <%= priceFormatter.format(cart.getProduct().getPrice())%></small>
+                                <small>Preço: <%= priceFormatter.format(cart.getProduct().getPrice())%></small>
                                 <br>
                                 <a href="Cart?action=remove">Remover</a>
                             </div>

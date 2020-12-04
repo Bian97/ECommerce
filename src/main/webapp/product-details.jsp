@@ -63,7 +63,7 @@
                     <h4><%= priceFormatter.format(product.getPrice())%></h4>
                     <input name="quantity" type="number" value="1">
                     <% if(!user.isType()){%> <button type="submit" class="btn">Adicionar ao Carrinho</button><%}%>
-                    <h3>Descriï¿½ï¿½o <i class="fa fa-indent"></i></h3>
+                    <h3>Descrição <i class="fa fa-indent"></i></h3>
                     <br>
                     <p><%= product.getDescription()%></p>
                 </form>
